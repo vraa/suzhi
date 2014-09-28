@@ -21,8 +21,13 @@ define(['util', 'colors', 'suzhi', 'goody'],
 
 		initObjects : function(){
 			suzhi = new Suzhi({env:env, canvas: canvas});
-			for(i=0; i<=3;i++){
-				goodies.push(new Goody('smiley', util.randomPoint(canvas, 100), canvas));
+			for(var i=1; i<=10; i++){
+				goodies.push(new Goody({
+							type : util.randomGoody(),
+							position :  util.randomPoint(canvas,20),
+							canvas : canvas
+						}
+					));
 			}
 		},
 
@@ -37,11 +42,17 @@ define(['util', 'colors', 'suzhi', 'goody'],
 		},
 
 		update : function(){
-			var i, gCount = goodies.length;
+			var i, gCount = goodies.length, goody;
 			frames+=1;
 			suzhi.update();
 			for(i=0; i < gCount; i++){
-				goodies[i].update(frames);
+				goody = goodies[i];
+				if(goody.isCaptured){
+					goodies.splice(i,1);
+					gCount--;
+				}else{
+					goodies[i].update(frames, suzhi.position());
+				}
 			}
 		},
 
