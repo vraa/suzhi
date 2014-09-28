@@ -24,6 +24,27 @@ define([], function(){
 			}
 			el = null;
 			return canTouch;
+		},
+
+		getMouseAt : function(evt, canvas){
+			var x, y;
+			if(evt.x && evt.y){
+				x = evt.x - canvas.offsetLeft;
+				y = evt.y - canvas.offsetTop;
+			}else{
+				x = evt.clientX + 
+					document.body.scrollLeft + 
+					document.documentElement.scrollLeft -
+					canvas.offsetLeft;
+				y = evt.clientY +
+					document.body.scrollTop +
+					document.documentElement.scrollTop -
+					canvas.offsetTop;
+			}
+			return {
+				x : x,
+				y : y
+			}
 		}
 	}
 

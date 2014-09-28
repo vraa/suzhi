@@ -33,15 +33,21 @@ define(['util', 'colors', 'suzhi'], function(util, colors, Suzhi){
 		},
 
 		update : function(){
+			var suziAt;
+
 			frames+=1;
 
 			suzhi.update();
-
-			if(suzhi.y >= (canvas.height - suzhi.size)){
+			suziAt = suzhi.position();
+			if(suziAt.bottom >= canvas.height){
 				suzhi.stop();
 			}
-
-			
+			if(suziAt.top <= 0){
+				suzhi.yVelocity = -suzhi.yVelocity;
+			}
+			if(suziAt.left <= 0 || suziAt.right >= canvas.width){
+				suzhi.xVelocity = -suzhi.xVelocity;
+			}
 		},
 
 		render : function(){
@@ -81,8 +87,8 @@ define(['util', 'colors', 'suzhi'], function(util, colors, Suzhi){
 			document.body.appendChild(canvas);
 		},
 
-		handleClickStart : function(){
-			suzhi.jump();	
+		handleClickStart : function(evt){
+			suzhi.jump(util.getMouseAt(evt, canvas));	
 		}
 
 	};
