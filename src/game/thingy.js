@@ -1,4 +1,4 @@
-define(['util'], function(util){
+define(['util', 'colors'], function(util,colors){
 
 	var config = {
 		smiley : {
@@ -6,37 +6,37 @@ define(['util'], function(util){
 			value : 5,
 			tX : 15,
 			tY : 10,
-			color: 'rgb(1,255,112)'
+			color: colors.goody
 		}, laughy : {
 			face : '😃',
 			value : 50,
 			tX : 13,
 			tY : 12,
-			color: 'rgb(1,255,112)'
+			color: colors.goody
 		}, holy : {
 			face : '😇',
 			value : 100,
 			tX : 10,
 			tY : 12,
-			color: 'rgb(1,255,112)'
+			color: colors.goody
 		}, geary : {
 			face : '⚙',
 			value : -5,
 			tX : 15,
 			tY : 10,
-			color: 'rgb(255,65,54)'
+			color: colors.baddie
 		}, sunny : {
 			face : '☀',
 			value : -50,
 			tX : 13,
 			tY : 12,
-			color: 'rgb(255,65,54)'
+			color: colors.baddie
 		}, rady : {
 			face : '☢',
 			value : -100,
 			tX : 10,
 			tY : 12,
-			color: 'rgb(255,65,54)'
+			color: colors.baddie
 		}
 	}, margin = 30;
 

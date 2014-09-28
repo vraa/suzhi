@@ -8,6 +8,10 @@ define(['util', 'colors', 'suzhi', 'thingy'],
 		frames = 0,
 		suzhi,
 		thingies = [],
+		thornHeight = 20,
+		thornWidth = 10,
+		cH = 0,
+		cW = 0,
 		env;
 
 	return {
@@ -54,7 +58,7 @@ define(['util', 'colors', 'suzhi', 'thingy'],
 					));
 			}
 			suzhi.update();
-			
+
 			for(i=0, gCount = thingies.length; i < gCount; i++){
 				thingy = thingies[i];
 				if(thingy.isCaptured){
@@ -75,6 +79,24 @@ define(['util', 'colors', 'suzhi', 'thingy'],
 			for(i=0; i < gCount; i++){
 				thingies[i].draw(ctx);
 			}
+			this.drawThornBed(ctx);
+		},
+
+		drawThornBed : function(ctx){
+			var turtle = 0;
+			ctx.save();
+			ctx.beginPath();
+			ctx.fillStyle = colors.baddie;
+			while(turtle <= cW){
+				ctx.moveTo(turtle, cH);
+				ctx.lineTo(turtle + thornWidth, cH - thornHeight);
+				ctx.lineTo(turtle + (2 * thornWidth), cH);
+
+				turtle += (2 * thornWidth);
+			}
+			ctx.fill();
+			ctx.closePath();
+			ctx.restore();
 		},
 
 		clearCanvas : function(){
@@ -105,6 +127,8 @@ define(['util', 'colors', 'suzhi', 'thingy'],
 
 			ctx = canvas.getContext('2d');
 			document.body.appendChild(canvas);
+			cH = canvas.height;
+			cW = canvas.width;
 		},
 
 		handleClickStart : function(evt){
