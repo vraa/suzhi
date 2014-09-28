@@ -59,6 +59,7 @@ define(['util'], function(util){
 		this.yVelocity = 1;
 		this.cH = options.canvas.height;
 		this.cW = options.canvas.width;
+		this.lifeTime = 2000;
 	}
 
 	Thingy.prototype = {
@@ -115,8 +116,10 @@ define(['util'], function(util){
 			this._hitTheWall();
 			if(!this.isCollided){
 				this._isCollided(suzhi);
-			}else{
-				this.lifeTime -= 1;
+			}
+			this.lifeTime -= 1;
+			if(this.lifeTime <= 36){
+				this.isDying = true;
 			}
 			if(this.lifeTime <=0){
 				this.isCaptured = true;
@@ -127,8 +130,10 @@ define(['util'], function(util){
 			ctx.save();
 			ctx.font = '30pt Arial';
 			ctx.fillStyle = this.color;
-			if(this.isCollided){
-				ctx.fillStyle = 'rgba(0,0,0,.' +  this.lifeTime + ')';
+			if(this.isCollided || this.isDying){
+				var op = this.isCollided ? this.lifeTime : Math.floor(this.lifeTime / 4);
+				var style = this.color.substring(0,this.color.length - 1) +', .' + op + ')';
+				ctx.fillStyle = style;
 			}
 			ctx.fillText(this.face, this.x,this.y);
 			ctx.font = '7pt Arial';
