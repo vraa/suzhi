@@ -5,18 +5,44 @@ define(['util'], function(util){
 			face : '☺',
 			value : 5,
 			tX : 15,
-			tY : 10
-
+			tY : 10,
+			color: 'rgb(1,255,112)'
 		}, laughy : {
 			face : '😃',
 			value : 50,
 			tX : 13,
-			tY : 12
+			tY : 12,
+			color: 'rgb(1,255,112)'
 		}, holy : {
 			face : '😇',
 			value : 100,
 			tX : 10,
-			tY : 12
+			tY : 12,
+			color: 'rgb(1,255,112)'
+		}, geary : {
+			face : '⚙',
+			value : -5,
+			tX : 15,
+			tY : 10,
+			color: 'rgb(255,65,54)'
+		}, sunny : {
+			face : '☀',
+			value : -50,
+			tX : 13,
+			tY : 12,
+			color: 'rgb(255,65,54)'
+		}, rady : {
+			face : '☢',
+			value : -500,
+			tX : 10,
+			tY : 12,
+			color: 'rgb(255,65,54)'
+		}, dizzy : {
+			face : '😵',
+			value : -1000,
+			tX : 10,
+			tY : 12,
+			color: 'rgb(255,65,54)'
 		}
 	}, margin = 30;
 
@@ -24,6 +50,7 @@ define(['util'], function(util){
 		this.type = options.type;
 		this.value = config[this.type].value;
 		this.face = config[this.type].face;
+		this.color = config[this.type].color;
 		this.x = options.position.x;
 		this.y = options.position.y;
 		this.tX = config[this.type].tX;
@@ -97,16 +124,16 @@ define(['util'], function(util){
 			}
 		},
 		draw : function(ctx){
-
 			ctx.save();
 			ctx.font = '30pt Arial';
-			ctx.fillStyle = 'rgba(0,0,0,1)';
+			ctx.fillStyle = this.color;
 			if(this.isCollided){
 				ctx.fillStyle = 'rgba(0,0,0,.' +  this.lifeTime + ')';
 			}
 			ctx.fillText(this.face, this.x,this.y);
 			ctx.font = '7pt Arial';
-			ctx.fillText('+' + this.value, this.x + this.tX, this.y+this.tY);
+			var sign = this.value < 0 ? '' : '+';
+			ctx.fillText(sign + this.value, this.x + this.tX, this.y+this.tY);
 			ctx.restore();
 
 
