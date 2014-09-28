@@ -84,7 +84,7 @@ define(['util','colors'], function(util,colors){
 				right : this.x + this.size
 			}
 		},
-		gotGoody : function(value){
+		gotThingy : function(value){
 			this.enFat = true;
 		}
 	}

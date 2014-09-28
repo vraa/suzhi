@@ -4,23 +4,23 @@ define(['util'], function(util){
 		smiley : {
 			face : '☺',
 			value : 5,
-			tX : 18,
+			tX : 15,
 			tY : 10
 
 		}, laughy : {
 			face : '😃',
 			value : 50,
-			tX : 16,
+			tX : 13,
 			tY : 12
 		}, holy : {
 			face : '😇',
 			value : 100,
-			tX : 13,
+			tX : 10,
 			tY : 12
 		}
 	}, margin = 30;
 
-	function Goody(options){
+	function Thingy(options){
 		this.type = options.type;
 		this.value = config[this.type].value;
 		this.face = config[this.type].face;
@@ -34,7 +34,7 @@ define(['util'], function(util){
 		this.cW = options.canvas.width;
 	}
 
-	Goody.prototype = {
+	Thingy.prototype = {
 
 		_hitTheWall : function(){
 			if(this.x <= 0){
@@ -75,7 +75,7 @@ define(['util'], function(util){
 					w : pos.right - pos.left
 				};
 			if(util.collided(o1, o2)){
-				suzhi.gotGoody(this.value);
+				suzhi.gotThingy(this.value);
 				this.isCollided = true;
 				this.lifeTime = 9;
 			}
@@ -106,13 +106,13 @@ define(['util'], function(util){
 			}
 			ctx.fillText(this.face, this.x,this.y);
 			ctx.font = '7pt Arial';
-			ctx.fillText(this.value, this.x + this.tX, this.y+this.tY);
+			ctx.fillText('+' + this.value, this.x + this.tX, this.y+this.tY);
 			ctx.restore();
 
 
 		}
 	}
 
-	return Goody;
+	return Thingy;
 
 });
