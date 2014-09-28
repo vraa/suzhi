@@ -3,8 +3,7 @@ define(['util','colors'], function(util,colors){
 	var GRAVITY = 0.25,
 		X_THRUST = 10,
 		Y_THRUST = 50,
-		MAX_Y_VELOCITY = 7,
-		MAX_FAT = 10;
+		MAX_Y_VELOCITY = 7;
 
 	function Suzhi(options){
 		this.x = 0;
@@ -20,7 +19,7 @@ define(['util','colors'], function(util,colors){
 			this.y = canvas.height / 2;
 			this.cH = canvas.height;
 			this.cW = canvas.width;
-			this.fat = 0;
+			this.score = 0;
 		},
 		jump : function(forcePoint){
 			var xForce, yForce, xVel, yVel;
@@ -52,28 +51,20 @@ define(['util','colors'], function(util,colors){
 			if(pos.left <= 0 || pos.right >= this.cW){
 				this.xVelocity = -this.xVelocity;
 			}
-			if(this.enFat){
-				if(this.fat >= MAX_FAT){
-					this.enFat = false;
-					this.deFat = true;
-				}else{
-					this.fat += 1;
-				}
-			}
-			if(this.deFat){
-				if(this.fat <= 0){
-					this.deFat = false;
-					this.fat = 0;
-				}else{
-					this.fat -= 1;
-				}
-			}
 		},
 		draw : function(ctx){
 			ctx.save();
 			ctx.fillStyle = colors.suzhi;
-			ctx.arc(this.x,this.y,this.size + this.fat, 0, Math.PI * 2, true);
+			ctx.arc(this.x,this.y,this.size, 0, Math.PI * 2, true);
 			ctx.fill();
+			this.drawScore(ctx);
+			ctx.restore();
+		},
+		drawScore : function(ctx){
+			ctx.save();
+			ctx.font = '11pt Audiowide';
+			ctx.fillStyle = colors.text;
+			ctx.fillText('score: ' + this.score, 20, 20);
 			ctx.restore();
 		},
 		position : function(){
@@ -85,7 +76,7 @@ define(['util','colors'], function(util,colors){
 			}
 		},
 		gotThingy : function(value){
-			this.enFat = true;
+			this.score += value;
 		}
 	}
 

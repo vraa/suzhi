@@ -21,6 +21,7 @@ define(['util', 'colors', 'suzhi', 'thingy'],
 
 		initObjects : function(){
 			suzhi = new Suzhi({env:env, canvas: canvas});
+			/*
 			for(var i=1; i<=5; i++){
 				thingies.push(new Thingy({
 							type : util.randomGoody(),
@@ -28,7 +29,7 @@ define(['util', 'colors', 'suzhi', 'thingy'],
 							canvas : canvas
 						}
 					));
-			}
+			}*/
 		},
 
 		run : function(){
@@ -42,10 +43,19 @@ define(['util', 'colors', 'suzhi', 'thingy'],
 		},
 
 		update : function(){
-			var i, gCount = thingies.length, thingy;
+			var i, gCount, thingy;
 			frames+=1;
+			if(frames % 200 == 0){
+				thingies.push(new Thingy({
+							type : util.randomGoody(),
+							position :  util.randomPoint(canvas,20),
+							canvas : canvas
+						}
+					));
+			}
 			suzhi.update();
-			for(i=0; i < gCount; i++){
+			
+			for(i=0, gCount = thingies.length; i < gCount; i++){
 				thingy = thingies[i];
 				if(thingy.isCaptured){
 					thingies.splice(i,1);

@@ -60,7 +60,7 @@ define([], function(){
 		},
 
 		randomGoody : function(){
-			var goodies = ['smiley', 'laughy', 'holy', 'geary', 'sunny', 'rady', 'dizzy'];
+			var goodies = ['smiley', 'laughy', 'holy', 'geary', 'sunny', 'rady'];
 			return goodies[Math.floor(Math.random() * goodies.length)];
 		},
 

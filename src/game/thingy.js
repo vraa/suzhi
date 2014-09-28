@@ -33,13 +33,7 @@ define(['util'], function(util){
 			color: 'rgb(255,65,54)'
 		}, rady : {
 			face : '☢',
-			value : -500,
-			tX : 10,
-			tY : 12,
-			color: 'rgb(255,65,54)'
-		}, dizzy : {
-			face : '😵',
-			value : -1000,
+			value : -100,
 			tX : 10,
 			tY : 12,
 			color: 'rgb(255,65,54)'
@@ -59,7 +53,7 @@ define(['util'], function(util){
 		this.yVelocity = 1;
 		this.cH = options.canvas.height;
 		this.cW = options.canvas.width;
-		this.lifeTime = 2000;
+		this.lifeTime = 500;
 	}
 
 	Thingy.prototype = {
@@ -105,7 +99,7 @@ define(['util'], function(util){
 			if(util.collided(o1, o2)){
 				suzhi.gotThingy(this.value);
 				this.isCollided = true;
-				this.lifeTime = 9;
+				this.lifeTime = 30;
 			}
 		},
 
@@ -118,7 +112,7 @@ define(['util'], function(util){
 				this._isCollided(suzhi);
 			}
 			this.lifeTime -= 1;
-			if(this.lifeTime <= 36){
+			if(this.lifeTime <= 30){
 				this.isDying = true;
 			}
 			if(this.lifeTime <=0){
@@ -127,18 +121,18 @@ define(['util'], function(util){
 			}
 		},
 		draw : function(ctx){
+			var fontSize;
 			ctx.save();
-			ctx.font = '30pt Arial';
+
+			fontSize = this.isDying || this.isCollided ? this.lifeTime  : 30;
+			ctx.font = fontSize + 'pt Arial';
 			ctx.fillStyle = this.color;
-			if(this.isCollided || this.isDying){
-				var op = this.isCollided ? this.lifeTime : Math.floor(this.lifeTime / 4);
-				var style = this.color.substring(0,this.color.length - 1) +', .' + op + ')';
-				ctx.fillStyle = style;
-			}
 			ctx.fillText(this.face, this.x,this.y);
-			ctx.font = '7pt Arial';
-			var sign = this.value < 0 ? '' : '+';
-			ctx.fillText(sign + this.value, this.x + this.tX, this.y+this.tY);
+			if(! (this.isDying || this.isCollided)){
+				ctx.font = '7pt Arial';
+				var sign = this.value < 0 ? '' : '+';
+				ctx.fillText(sign + this.value, this.x + this.tX, this.y+this.tY);
+			}
 			/*ctx.beginPath();
 			ctx.fillStyle = 'rgba(255,255,255,.5)';
 			ctx.arc(this.x + 18,this.y - 15,20, 0, Math.PI * 2, true);
