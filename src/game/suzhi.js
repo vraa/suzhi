@@ -1,7 +1,9 @@
 define(['util','colors'], function(util,colors){
 
 	var GRAVITY = 0.25,
-		THRUST = 4.6;
+		X_THRUST = 10,
+		Y_THRUST = 50,
+		MAX_Y_VELOCITY = 7;
 
 	function Suzhi(options){
 		this.x = 0;
@@ -19,13 +21,15 @@ define(['util','colors'], function(util,colors){
 			this.cW = canvas.width;
 		},
 		jump : function(forcePoint){
-			var xForce, yForce;
+			var xForce, yForce, xVel, yVel;
 			yForce = forcePoint.y - this.y;
 			xForce = forcePoint.x - this.x;
 
 			if(yForce >= 0){
-				this.yVelocity = -THRUST;
-				this.xVelocity = -( (10 * xForce) / this.cW );
+				yVel = ( (Y_THRUST * yForce) / this.cH );
+				xVel = ( (X_THRUST * xForce) / this.cW );
+				this.xVelocity = -xVel;
+				this.yVelocity = -Math.min(yVel, MAX_Y_VELOCITY);
 				this.inMotion = true;
 			}
 		},
