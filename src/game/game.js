@@ -7,7 +7,7 @@ define(['util', 'colors', 'suzhi', 'goody'],
 		height,
 		frames = 0,
 		suzhi,
-		goody,
+		goodies = [],
 		env;
 
 	return {
@@ -21,7 +21,9 @@ define(['util', 'colors', 'suzhi', 'goody'],
 
 		initObjects : function(){
 			suzhi = new Suzhi({env:env, canvas: canvas});
-			goody = new Goody('smiley', util.randomPoint(canvas, 100));
+			for(i=0; i<=3;i++){
+				goodies.push(new Goody('smiley', util.randomPoint(canvas, 100), canvas));
+			}
 		},
 
 		run : function(){
@@ -35,29 +37,23 @@ define(['util', 'colors', 'suzhi', 'goody'],
 		},
 
 		update : function(){
-			var suzhiPos;
-
+			var i, gCount = goodies.length;
 			frames+=1;
-
 			suzhi.update();
-			suzhiPos = suzhi.position();
-			if(suzhiPos.bottom >= canvas.height){
-				suzhi.stop();
-			}
-			if(suzhiPos.top <= 0){
-				suzhi.yVelocity = -suzhi.yVelocity;
-			}
-			if(suzhiPos.left <= 0 || suzhiPos.right >= canvas.width){
-				suzhi.xVelocity = -suzhi.xVelocity;
+			for(i=0; i < gCount; i++){
+				goodies[i].update(frames);
 			}
 		},
 
 		render : function(){
+			var i, gCount = goodies.length;
 			this.clearCanvas();
 			ctx.fillStyle = colors.bg;
 			ctx.fillRect(0,0,width,height);
 			suzhi.draw(ctx);
-			goody.draw(ctx);
+			for(i=0; i < gCount; i++){
+				goodies[i].draw(ctx);
+			}
 		},
 
 		clearCanvas : function(){

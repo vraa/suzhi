@@ -42,6 +42,16 @@ define(['util','colors'], function(util,colors){
 				this.y += this.yVelocity;
 				this.x += this.xVelocity;
 			}
+			var pos = this.position();
+			if(pos.bottom >= this.cH){
+				this.stop();
+			}
+			if(pos.top <= 0){
+				this.yVelocity = -this.yVelocity;
+			}
+			if(pos.left <= 0 || pos.right >= this.cW){
+				this.xVelocity = -this.xVelocity;
+			}
 		},
 		draw : function(ctx){
 			ctx.save();

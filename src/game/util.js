@@ -52,6 +52,10 @@ define([], function(){
 				x : Math.random() * ( (canvas.width - pad) - pad) + pad,
 				y : Math.random() * ( (canvas.height - pad) - pad) + pad,
 			}
+		},
+
+		randomNumber : function(max,min){
+			return Math.floor(Math.random() * (max - min)) + min;
 		}
 	}
 
