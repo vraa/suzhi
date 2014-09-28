@@ -51,7 +51,7 @@ define(['util', 'colors', 'suzhi', 'goody'],
 					goodies.splice(i,1);
 					gCount--;
 				}else{
-					goodies[i].update(frames, suzhi.position());
+					goodies[i].update(frames, suzhi);
 				}
 			}
 		},

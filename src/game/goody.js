@@ -61,31 +61,33 @@ define(['util'], function(util){
 			}
 		},
 
-		_isCollided : function(pos){
-			var o1 = {
-				x : this.x,
-				y : this.y,
-				h : 20,
-				w : 20
-			}, o2 = {
-				x : pos.left,
-				y : pos.top,
-				h : pos.bottom - pos.top,
-				w : pos.right - pos.left
-			}
+		_isCollided : function(suzhi){
+			var pos = suzhi.position(),
+				o1 = {
+					x : this.x,
+					y : this.y,
+					h : 20,
+					w : 20
+				}, o2 = {
+					x : pos.left,
+					y : pos.top,
+					h : pos.bottom - pos.top,
+					w : pos.right - pos.left
+				};
 			if(util.collided(o1, o2)){
+				suzhi.gotGoody(this.value);
 				this.isCollided = true;
 				this.lifeTime = 9;
 			}
 		},
 
-		update : function(frames, suzhiPos){
+		update : function(frames, suzhi){
 			this.x += this.xVelocity;
 			this.y += this.yVelocity;			
 			this._randomMotion(frames);
 			this._hitTheWall();
 			if(!this.isCollided){
-				this._isCollided(suzhiPos);
+				this._isCollided(suzhi);
 			}else{
 				this.lifeTime -= 1;
 			}
@@ -99,9 +101,9 @@ define(['util'], function(util){
 			ctx.save();
 			ctx.font = '30pt Arial';
 			ctx.fillStyle = 'rgba(0,0,0,1)';
-			/*if(this.isCollided){
+			if(this.isCollided){
 				ctx.fillStyle = 'rgba(0,0,0,.' +  this.lifeTime + ')';
-			}*/
+			}
 			ctx.fillText(this.face, this.x,this.y);
 			ctx.font = '7pt Arial';
 			ctx.fillText(this.value, this.x + this.tX, this.y+this.tY);
