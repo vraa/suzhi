@@ -92,8 +92,8 @@ define(['util'], function(util){
 		_isCollided : function(suzhi){
 			var pos = suzhi.position(),
 				o1 = {
-					x : this.x,
-					y : this.y,
+					x : this.x - 18, // bounding box
+					y : this.y - 15, // bouding box
 					h : 20,
 					w : 20
 				}, o2 = {
@@ -139,6 +139,12 @@ define(['util'], function(util){
 			ctx.font = '7pt Arial';
 			var sign = this.value < 0 ? '' : '+';
 			ctx.fillText(sign + this.value, this.x + this.tX, this.y+this.tY);
+			/*ctx.beginPath();
+			ctx.fillStyle = 'rgba(255,255,255,.5)';
+			ctx.arc(this.x + 18,this.y - 15,20, 0, Math.PI * 2, true);
+			ctx.fill();
+			ctx.closePath();
+			*/
 			ctx.restore();
 
 
