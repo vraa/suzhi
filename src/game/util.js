@@ -45,6 +45,13 @@ define([], function(){
 				x : x,
 				y : y
 			}
+		},
+
+		randomPoint : function(canvas, pad){
+			return {
+				x : Math.random() * ( (canvas.width - pad) - pad) + pad,
+				y : Math.random() * ( (canvas.height - pad) - pad) + pad,
+			}
 		}
 	}
 

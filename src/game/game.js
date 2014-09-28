@@ -1,4 +1,5 @@
-define(['util', 'colors', 'suzhi'], function(util, colors, Suzhi){
+define(['util', 'colors', 'suzhi', 'goody'], 
+	function(util, colors, Suzhi, Goody){
 
 	var canvas,
 		ctx,
@@ -6,7 +7,7 @@ define(['util', 'colors', 'suzhi'], function(util, colors, Suzhi){
 		height,
 		frames = 0,
 		suzhi,
-		barks = [],
+		goody,
 		env;
 
 	return {
@@ -20,6 +21,7 @@ define(['util', 'colors', 'suzhi'], function(util, colors, Suzhi){
 
 		initObjects : function(){
 			suzhi = new Suzhi({env:env, canvas: canvas});
+			goody = new Goody('smiley', util.randomPoint(canvas, 100));
 		},
 
 		run : function(){
@@ -33,19 +35,19 @@ define(['util', 'colors', 'suzhi'], function(util, colors, Suzhi){
 		},
 
 		update : function(){
-			var suziAt;
+			var suzhiPos;
 
 			frames+=1;
 
 			suzhi.update();
-			suziAt = suzhi.position();
-			if(suziAt.bottom >= canvas.height){
+			suzhiPos = suzhi.position();
+			if(suzhiPos.bottom >= canvas.height){
 				suzhi.stop();
 			}
-			if(suziAt.top <= 0){
+			if(suzhiPos.top <= 0){
 				suzhi.yVelocity = -suzhi.yVelocity;
 			}
-			if(suziAt.left <= 0 || suziAt.right >= canvas.width){
+			if(suzhiPos.left <= 0 || suzhiPos.right >= canvas.width){
 				suzhi.xVelocity = -suzhi.xVelocity;
 			}
 		},
@@ -55,6 +57,7 @@ define(['util', 'colors', 'suzhi'], function(util, colors, Suzhi){
 			ctx.fillStyle = colors.bg;
 			ctx.fillRect(0,0,width,height);
 			suzhi.draw(ctx);
+			goody.draw(ctx);
 		},
 
 		clearCanvas : function(){
