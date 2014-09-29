@@ -34,7 +34,7 @@ define(['util', 'colors', 'suzhi', 'thingy'],
 		},
 
 		initObjects : function(){
-			suzhi = new Suzhi({env:env, canvas: canvas});
+			suzhi = new Suzhi({env:env, canvas: canvas, sprite: sprite});
 			thingies = [];
 			/*
 			for(var i=1; i<=5; i++){
@@ -62,20 +62,7 @@ define(['util', 'colors', 'suzhi', 'thingy'],
 			frames+=1;
 
 			if(currentState === states.intro){
-				if(thingies.length < 6){
-					var allThingieNames = util.getAllGoodies();
-					gc = allThingieNames.length;
-					for(i=0; i<gc; i++){
-						thingies.push(new Thingy({
-									type : allThingieNames[i],
-									position :  util.randomPointInBox(20, cH/2, cW, cH),
-									canvas : canvas
-								}
-							));
-					}
-				}
 			}
-
 			if(currentState === states.game){
 				if(suzhi.isDead){
 					currentState = states.over;
@@ -93,7 +80,8 @@ define(['util', 'colors', 'suzhi', 'thingy'],
 				thingies.push(new Thingy({
 							type : util.randomGoody(),
 							position :  util.randomPoint(canvas,20),
-							canvas : canvas
+							canvas : canvas,
+							sprite : sprite
 						}
 					));
 			}
@@ -131,7 +119,6 @@ define(['util', 'colors', 'suzhi', 'thingy'],
 		},
 
 		drawIntro : function(ctx){
-
 			var title = util.sprites.suzhiTitle,
 				ready = util.sprites.getReady,
 				tap = util.sprites.tapHelp;

@@ -1,38 +1,40 @@
 define(['util', 'colors'], function(util,colors){
 
+	var coords = util.sprites;
+
 	var config = {
 		smiley : {
-			face : '☺',
+			coords : coords.smiley,
 			value : 5,
 			tX : 15,
 			tY : 10,
 			color: colors.goody
 		}, laughy : {
-			face : '😃',
+			coords : coords.laughy,
 			value : 50,
 			tX : 13,
 			tY : 12,
 			color: colors.goody
 		}, holy : {
-			face : '😇',
+			coords : coords.holy,
 			value : 200,
 			tX : 10,
 			tY : 12,
 			color: colors.goody
 		}, geary : {
-			face : '⚙',
+			coords : coords.geary['1'],
 			value : -5,
 			tX : 15,
 			tY : 10,
 			color: colors.baddie
 		}, sunny : {
-			face : '☀',
+			coords : coords.sunny['1'],
 			value : -50,
 			tX : 13,
 			tY : 12,
 			color: colors.baddie
 		}, rady : {
-			face : '☢',
+			coords : coords.rady['1'],
 			value : -100,
 			tX : 10,
 			tY : 12,
@@ -43,7 +45,7 @@ define(['util', 'colors'], function(util,colors){
 	function Thingy(options){
 		this.type = options.type;
 		this.value = config[this.type].value;
-		this.face = config[this.type].face;
+		this.coords = config[this.type].coords;
 		this.color = config[this.type].color;
 		this.x = options.position.x;
 		this.y = options.position.y;
@@ -54,6 +56,7 @@ define(['util', 'colors'], function(util,colors){
 		this.cH = options.canvas.height;
 		this.cW = options.canvas.width;
 		this.lifeTime = 500;
+		this.sprite = options.sprite;
 	}
 
 	Thingy.prototype = {
@@ -124,15 +127,13 @@ define(['util', 'colors'], function(util,colors){
 			var fontSize;
 			ctx.save();
 
-			fontSize = this.isDying || this.isCollided ? this.lifeTime  : 30;
-			ctx.font = fontSize + 'pt Arial';
-			ctx.fillStyle = this.color;
-			ctx.fillText(this.face, this.x,this.y);
+			util.drawSprite(ctx, this.sprite, this.coords, this.x, this.y);
+			/*
 			if(! (this.isDying || this.isCollided)){
 				ctx.font = '7pt Arial';
 				var sign = this.value < 0 ? '' : '+';
 				ctx.fillText(sign + this.value, this.x + this.tX, this.y+this.tY);
-			}
+			}*/
 			/*ctx.beginPath();
 			ctx.fillStyle = 'rgba(255,255,255,.5)';
 			ctx.arc(this.x + 18,this.y - 15,20, 0, Math.PI * 2, true);

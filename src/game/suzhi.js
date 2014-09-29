@@ -8,8 +8,10 @@ define(['util','colors'], function(util,colors){
 	function Suzhi(options){
 		this.x = 0;
 		this.y = 0;
-		this.size = 20;
+		this.size = 47;
 		this.yVelocity = 0;
+		this.sprite = options.sprite;
+		this.coords = util.sprites.suzhi;
 		this.init(options.canvas);
 	}
 
@@ -50,14 +52,12 @@ define(['util','colors'], function(util,colors){
 				this.yVelocity = -this.yVelocity;
 			}
 			if(pos.left <= 0 || pos.right >= this.cW){
-				this.xVelocity = -this.xVelocity;
+				this.xVelocity = - this.xVelocity;
 			}
 		},
 		draw : function(ctx){
 			ctx.save();
-			ctx.fillStyle = colors.suzhi;
-			ctx.arc(this.x,this.y,this.size, 0, Math.PI * 2, true);
-			ctx.fill();
+			util.drawSprite(ctx, this.sprite, this.coords, this.x, this.y);
 			this.drawScore(ctx);
 			ctx.restore();
 		},
@@ -70,9 +70,9 @@ define(['util','colors'], function(util,colors){
 		},
 		position : function(){
 			return {
-				top : this.y - this.size,
+				top : this.y,
 				bottom : this.y + this.size,
-				left : this.x - this.size,
+				left : this.x,
 				right : this.x + this.size
 			}
 		},
