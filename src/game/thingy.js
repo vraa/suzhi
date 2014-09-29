@@ -15,7 +15,7 @@ define(['util', 'colors'], function(util,colors){
 			color: colors.goody
 		}, holy : {
 			face : '😇',
-			value : 100,
+			value : 200,
 			tX : 10,
 			tY : 12,
 			color: colors.goody

@@ -34,6 +34,7 @@ define(['util','colors'], function(util,colors){
 		},
 		stop : function(){
 			this.inMotion = false;
+			this.isDead = true;
 		},
 		update : function(){
 			if(this.inMotion){
@@ -64,7 +65,7 @@ define(['util','colors'], function(util,colors){
 			ctx.save();
 			ctx.font = '11pt Audiowide';
 			ctx.fillStyle = colors.text;
-			ctx.fillText('score: ' + this.score, 20, 20);
+			ctx.fillText(this.score, 20, 20);
 			ctx.restore();
 		},
 		position : function(){

@@ -1,5 +1,7 @@
 define([], function(){
 
+	var goodies = ['smiley', 'laughy', 'holy', 'geary', 'sunny', 'rady'];
+
 	return {
 		log : console.log.bind(console),
 
@@ -55,13 +57,24 @@ define([], function(){
 			}
 		},
 
+		//Math.random() * (max - min) + min;
+		randomPointInBox : function(x1,y1, x2,y2){
+			return {
+				x : Math.random() *  (x2 - x1) + x1,
+				y : Math.random() *  (y2 - y1) + y1
+			}
+		},
+
 		randomNumber : function(max,min){
 			return Math.floor(Math.random() * (max - min)) + min;
 		},
 
 		randomGoody : function(){
-			var goodies = ['smiley', 'laughy', 'holy', 'geary', 'sunny', 'rady'];
 			return goodies[Math.floor(Math.random() * goodies.length)];
+		},
+
+		getAllGoodies : function(){
+			return goodies;
 		},
 
 		collided : function(o1,o2){

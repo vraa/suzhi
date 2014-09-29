@@ -6,7 +6,8 @@ define([], function(){
 		text : 'rgb(255,255,255)',
 		suzhi : 'rgb(255,220,0)',
 		goody : 'rgb(1,255,112)',
-		baddie : 'rgb(255,65,54)'
+		baddie : 'rgb(255,65,54)',
+		title : 'rgb(255,220,0)'
 
 	}
 

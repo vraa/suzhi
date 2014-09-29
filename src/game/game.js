@@ -12,7 +12,14 @@ define(['util', 'colors', 'suzhi', 'thingy'],
 		thornWidth = 10,
 		cH = 0,
 		cW = 0,
-		env;
+		env,
+		states = {
+			intro : 1,
+			game : 2,
+			over : 3
+		},
+		currentState = states.intro,
+		game;
 
 	return {
 
@@ -21,10 +28,12 @@ define(['util', 'colors', 'suzhi', 'thingy'],
 			this.setupCanvas();
 			this.initObjects();
 			this.run();
+			game = this;
 		},
 
 		initObjects : function(){
 			suzhi = new Suzhi({env:env, canvas: canvas});
+			thingies = [];
 			/*
 			for(var i=1; i<=5; i++){
 				thingies.push(new Thingy({
@@ -49,6 +58,35 @@ define(['util', 'colors', 'suzhi', 'thingy'],
 		update : function(){
 			var i, gCount, thingy;
 			frames+=1;
+
+			if(currentState === states.intro){
+				if(thingies.length < 6){
+					var allThingieNames = util.getAllGoodies();
+					gc = allThingieNames.length;
+					for(i=0; i<gc; i++){
+						thingies.push(new Thingy({
+									type : allThingieNames[i],
+									position :  util.randomPointInBox(20, cH/2, cW, cH),
+									canvas : canvas
+								}
+							));
+					}
+				}
+			}
+
+			if(currentState === states.game){
+				if(suzhi.isDead){
+					currentState = states.over;
+				}else{
+					this.updateGameWorld();	
+				}
+			}
+			if(currentState === states.over){
+			}
+			
+		},
+
+		updateGameWorld : function(){
 			if(frames % 200 == 0){
 				thingies.push(new Thingy({
 							type : util.randomGoody(),
@@ -71,16 +109,58 @@ define(['util', 'colors', 'suzhi', 'thingy'],
 		},
 
 		render : function(){
-			var i, gCount = thingies.length;
+			
 			this.clearCanvas();
 			ctx.fillStyle = colors.bg;
 			ctx.fillRect(0,0,width,height);
+
+			if(currentState === states.intro){
+				this.drawIntro(ctx);
+			}
+			if(currentState === states.game){
+				this.renderGameWorld(ctx);
+			}
+			if(currentState === states.over){
+				this.renderGameWorld(ctx);
+				this.drawGameOver(ctx);
+			}
+			
+			this.drawThornBed(ctx);
+		},
+
+		drawIntro : function(ctx){
+			var i, gCount = thingies.length;
+			ctx.save();
+			ctx.fillStyle = colors.title;
+			ctx.font = '30pt Audiowide';
+			ctx.textAlign = 'center';
+			ctx.fillText('suzhi', cW/2, 100);
+			suzhi.y = 150;
 			suzhi.draw(ctx);
 			for(i=0; i < gCount; i++){
 				thingies[i].draw(ctx);
 			}
-			this.drawThornBed(ctx);
+			ctx.restore();
+
 		},
+
+		drawGameOver : function(ctx){
+			ctx.save();
+			ctx.fillStyle = colors.title;
+			ctx.font = '30pt Audiowide';
+			ctx.textAlign = 'center';
+			ctx.fillText('GAME OVER', cW/2, cH/2);
+			ctx.restore();
+		},
+
+		renderGameWorld : function(ctx){
+			var i, gCount = thingies.length;
+			suzhi.draw(ctx);
+			for(i=0; i < gCount; i++){
+				thingies[i].draw(ctx);
+			}
+		},
+
 
 		drawThornBed : function(ctx){
 			var turtle = 0;
@@ -132,7 +212,12 @@ define(['util', 'colors', 'suzhi', 'thingy'],
 		},
 
 		handleClickStart : function(evt){
-			suzhi.jump(util.getMouseAt(evt, canvas));	
+			if(currentState === states.intro || currentState === states.over){
+				game.initObjects();
+				currentState = states.game;
+			}else if(currentState === states.game){
+				suzhi.jump(util.getMouseAt(evt, canvas));		
+			}
 		}
 
 	};
