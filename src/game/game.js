@@ -19,12 +19,14 @@ define(['util', 'colors', 'suzhi', 'thingy'],
 			over : 3
 		},
 		currentState = states.intro,
+		sprite,
 		game;
 
 	return {
 
 		init : function(options){
 			env = options.env;
+			sprite = options.sprite;
 			this.setupCanvas();
 			this.initObjects();
 			this.run();
@@ -129,19 +131,13 @@ define(['util', 'colors', 'suzhi', 'thingy'],
 		},
 
 		drawIntro : function(ctx){
-			var i, gCount = thingies.length;
-			ctx.save();
-			ctx.fillStyle = colors.title;
-			ctx.font = '30pt Audiowide';
-			ctx.textAlign = 'center';
-			ctx.fillText('suzhi', cW/2, 100);
-			suzhi.y = 150;
-			suzhi.draw(ctx);
-			for(i=0; i < gCount; i++){
-				thingies[i].draw(ctx);
-			}
-			ctx.restore();
 
+			var title = util.sprites.suzhiTitle,
+				ready = util.sprites.getReady,
+				tap = util.sprites.tapHelp;
+			util.drawSprite(ctx, sprite, title, (cW/2 - title[2]/2), 50);
+			util.drawSprite(ctx, sprite, tap, cW/2-tap[2]/2, 130);
+			util.drawSprite(ctx, sprite, ready, (cW/2 - ready[2]/2), 350);
 		},
 
 		drawGameOver : function(ctx){

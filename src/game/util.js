@@ -5,6 +5,34 @@ define([], function(){
 	return {
 		log : console.log.bind(console),
 
+		// x,y,w,h
+		sprites : {
+			suzhiTitle : [0, 60, 100, 30],
+			gameOver : [0, 0, 210, 25],
+			getReady : [0, 33, 200, 25],
+			tapHelp : [0, 100, 165, 165],
+			suzhi : [253, 0, 47, 47],
+			smiley : [211, 59, 36, 36],
+			laughy : [202, 106, 48, 48],
+			holy : [190, 160, 70, 70],
+			geary : {
+				'1' : [257, 60, 35, 35],
+				'2' : [306, 60, 35, 35]
+ 			},
+ 			sunny : {
+ 				'1' : [255, 105, 47, 47],
+ 				'2' : [313, 105, 47, 47]
+ 			},
+ 			rady : {
+ 				'1' : [258, 170, 53, 53],
+ 				'2' : [313, 170, 53, 53]
+ 			}
+		},
+
+		drawSprite : function(ctx, sprite, pt, x, y){
+			ctx.drawImage(sprite, pt[0], pt[1], pt[2], pt[3], x, y, pt[2], pt[3]);
+		},
+
 		/* detects the running environment. */
 		env : function(){
 			return {
