@@ -115,7 +115,7 @@ define(['util', 'colors', 'suzhi', 'thingy'],
 				this.drawGameOver(ctx);
 			}
 			
-			this.drawThornBed(ctx);
+			this.drawFireBed(ctx);
 		},
 
 		drawIntro : function(ctx){
@@ -141,7 +141,7 @@ define(['util', 'colors', 'suzhi', 'thingy'],
 		},
 
 
-		drawThornBed : function(ctx){
+		drawFireBed : function(ctx){
 			var fire = '',
 				fH = 35,
 				fW = 18,
