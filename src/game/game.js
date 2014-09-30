@@ -43,15 +43,6 @@ define(['util', 'colors', 'suzhi', 'thingy'],
 		initObjects : function(){
 			suzhi = new Suzhi({env:env, canvas: canvas, sprite: sprite});
 			thingies = [];
-			/*
-			for(var i=1; i<=5; i++){
-				thingies.push(new Thingy({
-							type : util.randomGoody(),
-							position :  util.randomPoint(canvas,20),
-							canvas : canvas
-						}
-					));
-			}*/
 		},
 
 		run : function(){
@@ -195,14 +186,14 @@ define(['util', 'colors', 'suzhi', 'thingy'],
 			
 			if(width >= 500){
 				width = 500;
-				height = 480;
+				height = 500;
 			}
 			canvas.width = width;
 			canvas.height = height;
 			canvas.addEventListener(evt, this.handleClickStart);
 
 			ctx = canvas.getContext('2d');
-			document.body.appendChild(canvas);
+			document.getElementById('game').appendChild(canvas);
 			cH = canvas.height;
 			cW = canvas.width;
 		},
