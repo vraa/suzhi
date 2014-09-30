@@ -73,13 +73,15 @@ define(['util','colors'], function(util,colors){
 		draw : function(ctx){
 			ctx.save();
 			util.drawSprite(ctx, this.sprite, this.moods[this.mood], this.x, this.y);
-			this.drawScore(ctx);
+			if(!this.isDead){
+				this.drawScore(ctx);
+			}
 			ctx.restore();
 		},
 		drawScore : function(ctx){
 			ctx.save();
-			ctx.font = '11pt Courier';
-			ctx.fillStyle = colors.text;
+			ctx.font = '11pt Audiowide';
+			ctx.fillStyle = colors.suzhi;
 			ctx.fillText(this.score, 20, 20);
 			ctx.restore();
 		},

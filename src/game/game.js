@@ -20,7 +20,8 @@ define(['util', 'colors', 'suzhi', 'thingy'],
 		},
 		currentState = states.intro,
 		sprite,
-		game;
+		game, 
+		okayBtn;
 
 	return {
 
@@ -30,6 +31,12 @@ define(['util', 'colors', 'suzhi', 'thingy'],
 			this.setupCanvas();
 			this.initObjects();
 			this.run();
+			okayBtn = {
+				x : cW/2 - util.sprites.okayBtn[2]/2,
+				y : cH/2 + 50,
+				w : util.sprites.okayBtn[2],
+				h : util.sprites.okayBtn[3]
+			}
 			game = this;
 		},
 
@@ -106,6 +113,7 @@ define(['util', 'colors', 'suzhi', 'thingy'],
 
 			if(currentState === states.intro){
 				this.drawIntro(ctx);
+				//util.spriteTest(ctx, sprite);
 			}
 			if(currentState === states.game){
 				this.renderGameWorld(ctx);
@@ -121,15 +129,25 @@ define(['util', 'colors', 'suzhi', 'thingy'],
 		drawIntro : function(ctx){
 			var title = util.sprites.suzhiTitle,
 				ready = util.sprites.getReady,
+				play = util.sprites.playBtn,
 				tap = util.sprites.tapHelp;
 			util.drawSprite(ctx, sprite, title, (cW/2 - title[2]/2), 50);
 			util.drawSprite(ctx, sprite, tap, cW/2-tap[2]/2, 130);
+			util.drawSprite(ctx, sprite, play, cW/2 - play[2]/2 , 290);
 			util.drawSprite(ctx, sprite, ready, (cW/2 - ready[2]/2), 350);
 		},
 
 		drawGameOver : function(ctx){
-			var go = util.sprites.gameOver;
-			util.drawSprite(ctx, sprite, go, cW/2 - go[2]/2, cH/2-go[3]/2);
+			var go = util.sprites.gameOver,
+				ok = util.sprites.okayBtn,
+				sc = util.sprites.score;
+			util.drawSprite(ctx, sprite, go, cW/2 - go[2]/2, 100);
+			util.drawSprite(ctx, sprite, sc, cW/2 - sc[2]/2, 150);
+			ctx.font = '30pt Audiowide';
+			ctx.fillStyle = colors.suzhi;
+			ctx.textAlign = 'center';
+			ctx.fillText(suzhi.score, cW/2, 230);
+			util.drawSprite(ctx, sprite, ok, okayBtn.x, okayBtn.y);
 		},
 
 		renderGameWorld : function(ctx){
@@ -190,11 +208,23 @@ define(['util', 'colors', 'suzhi', 'thingy'],
 		},
 
 		handleClickStart : function(evt){
-			if(currentState === states.intro || currentState === states.over){
+			if(currentState === states.intro){
 				game.initObjects();
 				currentState = states.game;
 			}else if(currentState === states.game){
 				suzhi.jump(util.getMouseAt(evt, canvas));		
+			}else if(currentState === states.over){
+				var m = util.getMouseAt(evt, canvas),
+					ok = {
+						x1 : okayBtn.x,
+						x2 : okayBtn.x + okayBtn.w,
+						y1 : okayBtn.y,
+						y2 : okayBtn.y + okayBtn.h
+					};
+				if(util.isPointInsideBox(ok,m)){
+					game.initObjects();
+					currentState = states.game;
+				}
 			}
 		}
 

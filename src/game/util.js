@@ -10,7 +10,7 @@ define([], function(){
 			suzhiTitle : [0, 60, 100, 30],
 			gameOver : [0, 0, 210, 25],
 			getReady : [0, 33, 200, 25],
-			tapHelp : [0, 100, 165, 165],
+			tapHelp : [0, 100, 180, 165],
 			suzhi : [253, 0, 47, 47],
 			suzhiHappy : [299, 0, 47, 47],
 			suzhiHurt : [345, 0, 47, 47],
@@ -48,11 +48,12 @@ define([], function(){
  				[0, 315, 18, 35],
  			],
  			okayBtn : [0, 270, 62, 20],
- 			playBtn : [0, 292, 62, 20]
+ 			playBtn : [0, 292, 62, 20],
+ 			score : [111, 65, 83, 20]
 		},
 
 		spriteTest : function(ctx, sprite){
-			var sp = this.sprites.playBtn;
+			var sp = this.sprites.score;
 			this.drawSprite(ctx, sprite, sp, 100, 100);
 			ctx.strokeStyle = 'white';
 			ctx.strokeRect(100, 100, sp[2], sp[3]);
@@ -149,6 +150,13 @@ define([], function(){
 			b2 = o2.y + o2.h;
 
 			return !(l1 > r2 || l2 > r1 || t1 > b2 || t2 > b1);
+		},
+
+		isPointInsideBox : function(box, point){
+			return (box.x1 <= point.x 
+				&& box.x2 >= point.x 
+				&& box.y1 <= point.y 
+				&& box.y2 >= point.y);
 		}
 	}
 
