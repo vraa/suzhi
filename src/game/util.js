@@ -12,6 +12,8 @@ define([], function(){
 			getReady : [0, 33, 200, 25],
 			tapHelp : [0, 100, 165, 165],
 			suzhi : [253, 0, 47, 47],
+			suzhiHappy : [299, 0, 47, 47],
+			suzhiHurt : [345, 0, 47, 47],
 			smiley : [211, 59, 36, 36],
 			laughy : [202, 106, 48, 48],
 			holy : [190, 160, 70, 70],
@@ -26,7 +28,34 @@ define([], function(){
  			rady : {
  				'1' : [258, 170, 53, 53],
  				'2' : [313, 170, 53, 53]
- 			}
+ 			},
+ 			fire : [
+ 				[377, 315, 18, 35],
+ 				[360, 315, 18, 35],
+ 				[334, 315, 18, 35],
+ 				[308, 315, 18, 35],
+ 				[278, 315, 18, 35],
+ 				[248, 315, 18, 35],
+ 				[219, 315, 18, 35],
+ 				[194, 315, 18, 35],
+ 				[166, 315, 18, 35],
+ 				[141, 315, 18, 35],
+ 				[117, 315, 18, 35],
+ 				[97, 315, 18, 35],
+ 				[75, 315, 18, 35],
+ 				[52, 315, 18, 35],
+ 				[25, 315, 18, 35],
+ 				[0, 315, 18, 35],
+ 			],
+ 			okayBtn : [0, 270, 62, 20],
+ 			playBtn : [0, 292, 62, 20]
+		},
+
+		spriteTest : function(ctx, sprite){
+			var sp = this.sprites.playBtn;
+			this.drawSprite(ctx, sprite, sp, 100, 100);
+			ctx.strokeStyle = 'white';
+			ctx.strokeRect(100, 100, sp[2], sp[3]);
 		},
 
 		drawSprite : function(ctx, sprite, pt, x, y, resize){

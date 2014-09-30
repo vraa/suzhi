@@ -3,7 +3,8 @@ define(['util','colors'], function(util,colors){
 	var GRAVITY = 0.25,
 		X_THRUST = 10,
 		Y_THRUST = 50,
-		MAX_Y_VELOCITY = 7;
+		MAX_Y_VELOCITY = 7,
+		TIME_TO_FLASH = 20;
 
 	function Suzhi(options){
 		this.x = 0;
@@ -12,6 +13,11 @@ define(['util','colors'], function(util,colors){
 		this.yVelocity = 0;
 		this.sprite = options.sprite;
 		this.coords = util.sprites.suzhi;
+		this.moods = {
+			normal : util.sprites.suzhi,
+			hurt : util.sprites.suzhiHurt,
+			happy : util.sprites.suzhiHappy
+		};
 		this.init(options.canvas);
 	}
 
@@ -22,6 +28,8 @@ define(['util','colors'], function(util,colors){
 			this.cH = canvas.height;
 			this.cW = canvas.width;
 			this.score = 0;
+			this.mood = 'normal';
+			this.flashMood = 0;
 		},
 		jump : function(forcePoint){
 			var xForce, yForce, xVel, yVel;
@@ -54,10 +62,16 @@ define(['util','colors'], function(util,colors){
 			if(pos.left <= 0 || pos.right >= this.cW){
 				this.xVelocity = - this.xVelocity;
 			}
+			if(this.flashMood > 0){
+				this.flashMood -= 1;
+			}
+			if(this.flashMood == 0){
+				this.mood = 'normal';
+			}
 		},
 		draw : function(ctx){
 			ctx.save();
-			util.drawSprite(ctx, this.sprite, this.coords, this.x, this.y);
+			util.drawSprite(ctx, this.sprite, this.moods[this.mood], this.x, this.y);
 			this.drawScore(ctx);
 			ctx.restore();
 		},
@@ -78,6 +92,8 @@ define(['util','colors'], function(util,colors){
 		},
 		gotThingy : function(value){
 			this.score += value;
+			this.mood = value < 0 ? 'hurt' : 'happy';
+			this.flashMood = TIME_TO_FLASH;
 		}
 	}
 
