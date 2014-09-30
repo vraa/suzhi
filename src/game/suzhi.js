@@ -63,7 +63,7 @@ define(['util','colors'], function(util,colors){
 		},
 		drawScore : function(ctx){
 			ctx.save();
-			ctx.font = '11pt Audiowide';
+			ctx.font = '11pt Courier';
 			ctx.fillStyle = colors.text;
 			ctx.fillText(this.score, 20, 20);
 			ctx.restore();
