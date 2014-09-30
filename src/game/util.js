@@ -29,8 +29,9 @@ define([], function(){
  			}
 		},
 
-		drawSprite : function(ctx, sprite, pt, x, y){
-			ctx.drawImage(sprite, pt[0], pt[1], pt[2], pt[3], x, y, pt[2], pt[3]);
+		drawSprite : function(ctx, sprite, pt, x, y, resize){
+			resize = 0;
+			ctx.drawImage(sprite, pt[0], pt[1], pt[2], pt[3], x, y, pt[2]-resize, pt[3]-resize);
 		},
 
 		/* detects the running environment. */

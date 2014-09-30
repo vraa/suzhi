@@ -40,7 +40,7 @@ define(['util', 'colors'], function(util,colors){
 			value : -100,
 			color: colors.baddie
 		}
-	}, margin = 0;
+	}, margin = 0, RETIREMENT=20, TODDLER=20, MAX_LIFE=2000;
 
 	function Thingy(options){
 		this.type = options.type;
@@ -58,9 +58,10 @@ define(['util', 'colors'], function(util,colors){
 		this.yVelocity = 1;
 		this.cH = options.canvas.height;
 		this.cW = options.canvas.width;
-		this.lifeTime = 500;
+		this.lifeTime = MAX_LIFE;
 		this.sprite = options.sprite;
 		this.animFrames = 0;
+		this.isToddler = true;
 	}
 
 	Thingy.prototype = {
@@ -106,7 +107,7 @@ define(['util', 'colors'], function(util,colors){
 			if(util.collided(o1, o2)){
 				suzhi.gotThingy(this.value);
 				this.isCollided = true;
-				this.lifeTime = 30;
+				this.lifeTime = RETIREMENT;
 			}
 		},
 
@@ -115,12 +116,15 @@ define(['util', 'colors'], function(util,colors){
 			this.y += this.yVelocity;			
 			this._randomMotion(frames);
 			this._hitTheWall();
-			if(!this.isCollided){
+			if(!this.isCollided && !this.isDying && !this.isToddler){
 				this._isCollided(suzhi);
 			}
 			this.lifeTime -= 1;
-			if(this.lifeTime <= 30){
+			if(this.lifeTime <= RETIREMENT){
 				this.isDying = true;
+			}
+			if(MAX_LIFE - this.lifeTime >= TODDLER){
+				this.isToddler = false;
 			}
 			if(this.lifeTime <=0){
 				this.isDead = true;
@@ -140,16 +144,22 @@ define(['util', 'colors'], function(util,colors){
 			var tx,ty,sign, resize;
 			ctx.save();
 
-			if(this.isDying){
-				resize = this.coords[2] - this.lifeTime;
+			if(this.isCollided || this.isDying){
+				ctx.globalAlpha = this.lifeTime / RETIREMENT;
+			}
+			if(this.isToddler){
+				ctx.globalAlpha = (MAX_LIFE - this.lifeTime) / TODDLER;
 			}
 			util.drawSprite(ctx, this.sprite, this.coords, this.x, this.y, resize);
-			ctx.fillStyle = this.color;
-			ctx.font = '7pt Courier';
-			sign = this.value < 0 ? '' : '+';
-			tx = this.x + (this.width / 2) - 10;
-			ty = this.y + (this.height + 10);
-			ctx.fillText(sign + this.value,tx,ty);
+
+			if(!(this.isDying || this.isCollided)){
+				ctx.fillStyle = this.color;
+				ctx.font = '7pt Courier';
+				sign = this.value < 0 ? '' : '+';
+				tx = this.x + (this.width / 2) - 10;
+				ty = this.y + (this.height + 10);
+				ctx.fillText(sign + this.value,tx,ty);
+			}
 			ctx.restore();
 		}
 	}
