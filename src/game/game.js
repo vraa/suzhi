@@ -177,7 +177,7 @@ define(['util', 'colors', 'suzhi', 'thingy'],
 			height = env.viewport.height;
 			
 			if(width >= 500){
-				width = 320;
+				width = 500;
 				height = 480;
 			}
 			canvas.width = width;
