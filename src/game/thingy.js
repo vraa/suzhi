@@ -93,15 +93,15 @@ define(['util', 'colors'], function(util,colors){
 		_isCollided : function(suzhi){
 			var pos = suzhi.position(),
 				o1 = {
-					x : this.x - 18, // bounding box
-					y : this.y - 15, // bouding box
-					h : 20,
-					w : 20
+					x : this.x,
+					y : this.y,
+					h : this.height,
+					w : this.width
 				}, o2 = {
 					x : pos.left,
 					y : pos.top,
-					h : pos.bottom - pos.top,
-					w : pos.right - pos.left
+					h : suzhi.size,
+					w : suzhi.size
 				};
 			if(util.collided(o1, o2)){
 				suzhi.gotThingy(this.value);
