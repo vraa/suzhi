@@ -89,7 +89,7 @@ define(['util', 'colors', 'suzhi', 'thingy'],
 
 			for(i=0, gCount = thingies.length; i < gCount; i++){
 				thingy = thingies[i];
-				if(thingy.isCaptured){
+				if(thingy.isDead){
 					thingies.splice(i,1);
 					gCount--;
 				}else{

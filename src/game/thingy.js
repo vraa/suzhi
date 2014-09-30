@@ -40,7 +40,7 @@ define(['util', 'colors'], function(util,colors){
 			value : -100,
 			color: colors.baddie
 		}
-	}, margin = 30;
+	}, margin = 0;
 
 	function Thingy(options){
 		this.type = options.type;
@@ -69,13 +69,13 @@ define(['util', 'colors'], function(util,colors){
 			if(this.x <= 0){
 				this.xVelocity = Math.abs(this.xVelocity);
 			}
-			if(this.x >= (this.cW - margin)){
+			if( (this.x + this.width) >= (this.cW - margin)){
 				this.xVelocity = -Math.abs(this.xVelocity);
 			}
 			if(this.y <= margin){
 				this.yVelocity = Math.abs(this.yVelocity);
 			}
-			if(this.y >= (this.cH - margin)){
+			if( (this.y + this.height) >= (this.cH - margin)){
 				this.yVelocity = -Math.abs(this.yVelocity);
 			}
 		},
@@ -123,7 +123,7 @@ define(['util', 'colors'], function(util,colors){
 				this.isDying = true;
 			}
 			if(this.lifeTime <=0){
-				this.isCaptured = true;
+				this.isDead = true;
 				this.lifeTime = 0;
 			}
 			if(this.role === 'baddie'){
@@ -137,9 +137,13 @@ define(['util', 'colors'], function(util,colors){
 			}
 		},
 		draw : function(ctx){
-			var tx,ty,sign;
+			var tx,ty,sign, resize;
 			ctx.save();
-			util.drawSprite(ctx, this.sprite, this.coords, this.x, this.y);
+
+			if(this.isDying){
+				resize = this.coords[2] - this.lifeTime;
+			}
+			util.drawSprite(ctx, this.sprite, this.coords, this.x, this.y, resize);
 			ctx.fillStyle = this.color;
 			ctx.font = '7pt Courier';
 			sign = this.value < 0 ? '' : '+';
@@ -147,8 +151,6 @@ define(['util', 'colors'], function(util,colors){
 			ty = this.y + (this.height + 10);
 			ctx.fillText(sign + this.value,tx,ty);
 			ctx.restore();
-
-
 		}
 	}
 
