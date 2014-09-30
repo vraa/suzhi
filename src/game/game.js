@@ -128,12 +128,8 @@ define(['util', 'colors', 'suzhi', 'thingy'],
 		},
 
 		drawGameOver : function(ctx){
-			ctx.save();
-			ctx.fillStyle = colors.title;
-			ctx.font = '30pt Audiowide';
-			ctx.textAlign = 'center';
-			ctx.fillText('GAME OVER', cW/2, cH/2);
-			ctx.restore();
+			var go = util.sprites.gameOver;
+			util.drawSprite(ctx, sprite, go, cW/2 - go[2]/2, cH/2-go[3]/2);
 		},
 
 		renderGameWorld : function(ctx){
