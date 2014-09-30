@@ -142,20 +142,19 @@ define(['util', 'colors', 'suzhi', 'thingy'],
 
 
 		drawThornBed : function(ctx){
-			var turtle = 0;
-			ctx.save();
-			ctx.beginPath();
-			ctx.fillStyle = colors.baddie;
-			while(turtle <= cW){
-				ctx.moveTo(turtle, cH);
-				ctx.lineTo(turtle + thornWidth, cH - thornHeight);
-				ctx.lineTo(turtle + (2 * thornWidth), cH);
+			var fire = '',
+				fH = 35,
+				fW = 18,
+				tx = 0,
+				ty = cH-fH,
+				frm = frames;
 
-				turtle += (2 * thornWidth);
+			while(tx <= cW){
+				fire = util.sprites.fire[frm % 16];
+				frm++;
+				util.drawSprite(ctx, sprite, fire, tx, ty);
+				tx += (2*fW);
 			}
-			ctx.fill();
-			ctx.closePath();
-			ctx.restore();
 		},
 
 		clearCanvas : function(){
