@@ -45,6 +45,7 @@ define(['util','colors'], function(util,colors){
 		stop : function(){
 			this.inMotion = false;
 			this.isDead = true;
+			this.mood = 'hurt';
 		},
 		update : function(){
 			if(this.inMotion){
@@ -53,7 +54,7 @@ define(['util','colors'], function(util,colors){
 				this.x += this.xVelocity;
 			}
 			var pos = this.position();
-			if(pos.bottom >= this.cH){
+			if(pos.bottom >= (this.cH - 17)){
 				this.stop();
 			}
 			if(pos.top <= 0){
@@ -65,7 +66,7 @@ define(['util','colors'], function(util,colors){
 			if(this.flashMood > 0){
 				this.flashMood -= 1;
 			}
-			if(this.flashMood == 0){
+			if(this.flashMood == 0 && !this.isDead){
 				this.mood = 'normal';
 			}
 		},
