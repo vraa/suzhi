@@ -71,7 +71,7 @@ body{
 		overflow: hidden;
 		display: block;
 		width: 900px;
-		margin:auto;
+		margin:100px auto;
 	}
 	.game{
 		float: left;
@@ -88,21 +88,27 @@ body{
 		font-size: .7rem;
 		line-height: 1.45rem;
 		text-align: center;
+		position: relative;
 	}
 	.info h1{
 		font-size: 1.4rem;
 		margin:10px 0;
 		text-transform: uppercase;
 		color: #001F3F;
+		text-align: left;
+		padding: 20px;
 	}
 	.info h2{
 		font-size: 1.2rem;
 		margin-bottom: 10px;
 	}
-	.info ol{
-		list-style: decimal;
+	.info ul{
+		list-style: square;
 		letter-spacing: 1pt;
 		margin-left: 20px;
+		text-align: left;
+		padding: 0 20px 20px 20px;
+		font-size: 1rem;
 	}
 	.info .author{
 		margin: 100px 0;
@@ -116,9 +122,11 @@ body{
 	}
 	footer{
 		clear: both;
+		padding-top: 20px;
 	}
 	.ad{
-		padding-top: 10px;
-		border-top:1px dashed #ccc;
+		position: absolute;
+		bottom: 0;
+		left: 5px;
 	}
 }

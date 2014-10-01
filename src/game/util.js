@@ -3,7 +3,6 @@ define([], function(){
 	var goodies = ['smiley', 'laughy', 'holy', 'geary', 'sunny', 'rady'];
 
 	return {
-		log : console.log.bind(console),
 
 		// x,y,w,h
 		sprites : {
@@ -11,6 +10,7 @@ define([], function(){
 			gameOver : [0, 0, 210, 25],
 			getReady : [0, 33, 200, 25],
 			tapHelp : [0, 100, 180, 165],
+			howTo : [10, 365, 265, 225],
 			suzhi : [253, 0, 47, 47],
 			suzhiHappy : [299, 0, 47, 47],
 			suzhiHurt : [345, 0, 47, 47],
@@ -53,7 +53,7 @@ define([], function(){
 		},
 
 		spriteTest : function(ctx, sprite){
-			var sp = this.sprites.score;
+			var sp = this.sprites.howTo;
 			this.drawSprite(ctx, sprite, sp, 100, 100);
 			ctx.strokeStyle = 'white';
 			ctx.strokeRect(100, 100, sp[2], sp[3]);

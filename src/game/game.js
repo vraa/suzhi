@@ -50,9 +50,9 @@ define(['util', 'colors', 'suzhi', 'thingy'],
 				loop = function(){
 					game.update();
 					game.render();
-					window.requestAnimationFrame(loop);
+					window.requestAnimFrame(loop);
 				}
-			window.requestAnimationFrame(loop);
+			window.requestAnimFrame(loop);
 		},
 
 		update : function(){
@@ -121,11 +121,11 @@ define(['util', 'colors', 'suzhi', 'thingy'],
 			var title = util.sprites.suzhiTitle,
 				ready = util.sprites.getReady,
 				play = util.sprites.playBtn,
-				tap = util.sprites.tapHelp;
+				how = util.sprites.howTo;
 			util.drawSprite(ctx, sprite, title, (cW/2 - title[2]/2), 50);
-			util.drawSprite(ctx, sprite, tap, cW/2-tap[2]/2, 130);
-			util.drawSprite(ctx, sprite, play, cW/2 - play[2]/2 , 290);
-			util.drawSprite(ctx, sprite, ready, (cW/2 - ready[2]/2), 350);
+			util.drawSprite(ctx, sprite, how, cW/2-how[2]/2, 130);
+			util.drawSprite(ctx, sprite, play, cW/2 - play[2]/2 , 380);
+			util.drawSprite(ctx, sprite, ready, (cW/2 - ready[2]/2), 430);
 		},
 
 		drawGameOver : function(ctx){
