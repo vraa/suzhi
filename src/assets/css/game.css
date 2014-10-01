@@ -47,6 +47,18 @@ table {
 	box-sizing: border-box; 
 }
 
+body{
+	background-color: #eee;
+}
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
 .suzhi{
 	font:1rem Audiowide;
 }
@@ -54,26 +66,28 @@ table {
 	display: none;
 }
 
-@media(min-width: 850px){
+@media(min-width: 900px){
 	.suzhi{
 		overflow: hidden;
-		width: 850px;
-		margin:20px auto;
+		display: block;
+		width: 900px;
+		margin:auto;
 	}
 	.game{
 		float: left;
-		width: 500px;
+		width: 550px;
+		height: 550px;
 	}
 	.info{
 		display: block;
 		float: left;
 		width: 350px;
-		height: 500px;
-		padding: 10px 10px 10px 30px;
+		height: 550px;
 		background-color: #DDDDDD;
 		color: #666;
 		font-size: .7rem;
 		line-height: 1.45rem;
+		text-align: center;
 	}
 	.info h1{
 		font-size: 1.4rem;
@@ -99,5 +113,12 @@ table {
 	.author a{
 		color: #111111;
 		text-decoration: none;
+	}
+	footer{
+		clear: both;
+	}
+	.ad{
+		padding-top: 10px;
+		border-top:1px dashed #ccc;
 	}
 }

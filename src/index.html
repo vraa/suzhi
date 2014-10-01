@@ -14,28 +14,35 @@
 		<meta name="twitter:creator:id" content="8643632"/>
 		<link href='http://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" href="assets/css/game.css">
-		
+
 		<!--[if lt IE 9]>
 		<script type="text/javascript" src="game/lib/flashcanvas/flashcanvas.js"></script>
 		<![endif]-->
 		
 	</head>
-	<body>
+	<body class="noselect">
 		<div class="suzhi">
-			<div id="game" class="game"></div>
+			<div id="game" class="game">
+			</div>
 			<div class="info">
-				<h1>Suzhi</h1>
-				<h2>How to play?</h2>
-				<ol>
-					<li>Use mouse to control the ball (suzhi).</li>
-					<li>Click to keep the ball in air. Drop the ball and the game is over.</li>
-					<li>Collect Green objects and avoid red objects.</li>
-				</ol>
-
+				<img src="assets/img/howto.png" title="How to Play?" alt="How to Play?">
+				<div class="ad">
+					<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+					<!-- suzhi-sidebar -->
+					<ins class="adsbygoogle"
+					     style="display:inline-block;width:336px;height:280px"
+					     data-ad-client="ca-pub-4601926589924919"
+					     data-ad-slot="7409598660"></ins>
+					<script>
+					(adsbygoogle = window.adsbygoogle || []).push({});
+					</script>
+				</div>
+			</div>
+			<footer>
 				<div class="author">
 					<a href="http://veerasundar.com" title="Built with ❤ from Chennai">@vraa</a> | <a href="http://github.com/vraa/suzhi">Source</a> | <a href="credits.txt">Credits</a>
 				</div>
-			</div>
+			</footer>
 		</div>
 		<script data-main="game/main-built" src="game/lib/require.js"></script>
 		<script>

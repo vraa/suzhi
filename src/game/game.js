@@ -181,18 +181,20 @@ define(['util', 'colors', 'suzhi', 'thingy'],
 		setupCanvas : function(){
 			var evt = env.canTouch ? 'touchstart' : 'mousedown';
 			canvas = document.createElement('canvas');
+
+			ctx = canvas.getContext &&  canvas.getContext('2d');
 			width = env.viewport.width;
 			height = env.viewport.height;
 			
 			if(width >= 500){
-				width = 500;
-				height = 500;
+				width = 550;
+				height = 550;
 			}
 			canvas.width = width;
 			canvas.height = height;
 			canvas.addEventListener(evt, this.handleClickStart);
 
-			ctx = canvas.getContext('2d');
+			
 			document.getElementById('game').appendChild(canvas);
 			cH = canvas.height;
 			cW = canvas.width;
