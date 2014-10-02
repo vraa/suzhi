@@ -18,6 +18,6 @@ require(['game','util'], function(Game, util){
 			sprite : this
 		});
 	}
-	sprite.src = 'assets/img/sprite.png';
+	sprite.src = 'assets/img/sprite102.png';
 
 });
