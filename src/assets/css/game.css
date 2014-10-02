@@ -59,3 +59,27 @@ body{
     -ms-user-select: none;
     user-select: none;
 }
+
+.suzhi{
+	overflow: hidden;
+}
+.game{
+	width: 600px;
+	float: left;
+}
+.ad{
+	width: 320px;
+	float: left;
+	text-align: center;
+}
+footer{
+	clear:both;
+	margin-top:10px;
+	font:.81rem mono;
+	color: #666;
+}
+
+footer a{
+	color:#222;
+	text-decoration: none;
+}
