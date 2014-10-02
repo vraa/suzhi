@@ -40,6 +40,8 @@ define(['util','colors'], function(util,colors){
 				this.move('left');
 			}else if(keyCode === KEYS.RIGHT){
 				this.move('right');
+			}else if(keyCode === KEYS.DOWN){
+				this.fall();
 			}else if(keyCode === KEYS.SPACE){
 				this.fire();
 			}
@@ -49,21 +51,29 @@ define(['util','colors'], function(util,colors){
 			var xy = this.xy(),
 				dX = direction === 'left' ? 100 : -100;
 			xy.x += dX;
-			this.jump(xy, MINIMAL_THRUST);
+			this.jump(xy, 2, .1);
 		},
 
 		fire : function(){
 			console.log('Firing the shit out');
 		},
 
-		jump : function(forcePoint, force){
+		fall : function(){
+			this.yVelocity = Math.abs(this.yVelocity);
+			this.xVelocity = 0;
+		},
+
+		jump : function(forcePoint, xForcePush, yForcePush){
 			forcePoint = forcePoint || this.xy();
+			xForcePush = xForcePush || 1;
+			yForcePush = yForcePush || 1;
 			var xForce, yForce, xVel, yVel;
 			yForce = forcePoint.y - this.y;
 			xForce = forcePoint.x - this.x;
 
-			yVel = force || Y_THRUST;
-			xVel = ( (X_THRUST * xForce) / this.cW );
+			xVel = xForcePush * ( (X_THRUST * xForce) / this.cW );
+			yVel = yForcePush * Y_THRUST;
+			
 			this.xVelocity = -xVel;
 			this.yVelocity = -Math.min(yVel, MAX_Y_VELOCITY);
 			this.inMotion = true;
