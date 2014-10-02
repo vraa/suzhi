@@ -57,11 +57,14 @@ define(['util','colors'], function(util,colors){
 			if(pos.bottom >= (this.cH - 17)){
 				this.stop();
 			}
-			if(pos.top <= 0){
-				this.yVelocity = -this.yVelocity;
+			if(pos.top <= 0 && this.yVelocity < 0){
+				this.yVelocity = Math.abs(this.yVelocity);
 			}
-			if(pos.left <= 0 || pos.right >= this.cW){
-				this.xVelocity = - this.xVelocity;
+			if(pos.left <= 0 && this.xVelocity < 0){
+				this.xVelocity = Math.abs(this.xVelocity);
+			}
+			if(pos.right >= cW && this.xVelocity > 0){
+				this.xVelocity = this.xVelocity * -1;
 			}
 			if(this.flashMood > 0){
 				this.flashMood -= 1;
