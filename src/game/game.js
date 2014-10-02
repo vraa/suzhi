@@ -1,5 +1,5 @@
-define(['util', 'colors', 'suzhi', 'thingy'], 
-	function(util, colors, Suzhi, Thingy){
+define(['util', 'colors', 'suzhi', 'thingy', 'hud'], 
+	function(util, colors, Suzhi, Thingy, Hud){
 
 	var canvas,
 		ctx,
@@ -7,6 +7,7 @@ define(['util', 'colors', 'suzhi', 'thingy'],
 		height,
 		frames = 0,
 		suzhi,
+		hud,
 		thingies = [],
 		thornHeight = 20,
 		thornWidth = 10,
@@ -43,12 +44,14 @@ define(['util', 'colors', 'suzhi', 'thingy'],
 
 		initObjects : function(){
 			suzhi = new Suzhi({env:env, canvas: canvas, sprite: sprite});
+			hud = new Hud({canvas: canvas});
 			thingies = [];
 		},
 
 		start : function(){
 			this.initObjects();
 			currentState = states.game;
+			frames = 0;
 		},
 
 		run : function(){
@@ -79,17 +82,29 @@ define(['util', 'colors', 'suzhi', 'thingy'],
 			
 		},
 
-		updateGameWorld : function(){
-			if(frames % 200 == 0){
-				thingies.push(new Thingy({
-							type : util.randomGoody(),
+		getThingy : function(type){
+			return new Thingy({
+							type : type,
 							position :  util.randomPoint(canvas,20),
 							canvas : canvas,
 							sprite : sprite
 						}
-					));
+					);
+		},
+
+		updateGameWorld : function(){
+			if(frames % 200 == 0){
+				thingies.push(this.getThingy(util.randomGoody()));
+			}
+			if(frames % 1000 == 0){
+				thingies.push(this.getThingy(util.randomAddon()));
 			}
 			suzhi.update();
+			hud.update({
+				score : suzhi.score,
+				health : suzhi.health,
+				ammo : suzhi.ammo
+			});
 
 			for(i=0, gCount = thingies.length; i < gCount; i++){
 				thingy = thingies[i];
@@ -153,6 +168,7 @@ define(['util', 'colors', 'suzhi', 'thingy'],
 			for(i=0; i < gCount; i++){
 				thingies[i].draw(ctx);
 			}
+			hud.draw(ctx);
 		},
 
 

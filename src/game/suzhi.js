@@ -31,6 +31,8 @@ define(['util','colors'], function(util,colors){
 			this.cW = canvas.width;
 			this.score = 0;
 			this.mood = 'normal';
+			this.health = 100,
+			this.ammo = 0,
 			this.flashMood = 0;
 		},
 		actOn : function(keyCode){
@@ -110,19 +112,7 @@ define(['util','colors'], function(util,colors){
 			}
 		},
 		draw : function(ctx){
-			ctx.save();
 			util.drawSprite(ctx, this.sprite, this.moods[this.mood], this.x, this.y);
-			if(!this.isDead){
-				this.drawScore(ctx);
-			}
-			ctx.restore();
-		},
-		drawScore : function(ctx){
-			ctx.save();
-			ctx.font = '11pt Audiowide';
-			ctx.fillStyle = colors.suzhi;
-			ctx.fillText(this.score, 20, 20);
-			ctx.restore();
 		},
 		xy : function(){
 			return {

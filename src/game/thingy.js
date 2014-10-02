@@ -39,6 +39,17 @@ define(['util', 'colors'], function(util,colors){
 			coordsEven : coords.rady['2'],
 			value : -100,
 			color: colors.baddie
+		}, hearty : {
+			role : 'addon',
+			category : 'health',
+			coords : coords.bigHeart,
+			value : 10,
+			color: colors.goody
+		}, bolty : {
+			role : 'addon',
+			category : 'ammo',
+			coords: coords.bigBolt,
+			value : 1
 		}
 	}, margin = 0, RETIREMENT=20, TODDLER=20, MAX_LIFE=2000;
 
@@ -50,6 +61,7 @@ define(['util', 'colors'], function(util,colors){
 		this.coordsEven = config[this.type].coordsEven;
 		this.color = config[this.type].color;
 		this.role = config[this.type].role;
+		this.category = config[this.type].category;
 		this.x = options.position.x;
 		this.y = options.position.y;
 		this.width = this.coords[2];

@@ -1,6 +1,7 @@
 define([], function(){
 
 	var goodies = ['smiley', 'laughy', 'holy', 'geary', 'sunny', 'rady'];
+	var addons = ['hearty', 'bolty'];
 
 	return {
 
@@ -67,11 +68,15 @@ define([], function(){
  			],
  			okayBtn : [0, 270, 62, 20],
  			playBtn : [0, 292, 62, 20],
- 			score : [111, 65, 83, 20]
+ 			score : [111, 65, 83, 20],
+ 			heart : [144, 240, 36, 33],
+ 			bigHeart : [76, 240, 68, 66],
+ 			bigBolt : [203, 245, 38, 55],
+ 			bolt : [255, 245, 25, 33]
 		},
 
 		spriteTest : function(ctx, sprite){
-			var sp = this.sprites.howTo;
+			var sp = this.sprites.bolt;
 			this.drawSprite(ctx, sprite, sp, 100, 100);
 			ctx.strokeStyle = 'white';
 			ctx.strokeRect(100, 100, sp[2], sp[3]);
@@ -148,6 +153,10 @@ define([], function(){
 
 		randomGoody : function(){
 			return goodies[Math.floor(Math.random() * goodies.length)];
+		},
+
+		randomAddon : function(){
+			return addons[Math.floor(Math.random() * addons.length)];
 		},
 
 		getAllGoodies : function(){
