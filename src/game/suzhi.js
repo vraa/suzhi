@@ -148,6 +148,9 @@ define(['util','colors'], function(util,colors){
 		},
 		gotThingy : function(thingy){
 			this.score += thingy.value;
+			if(this.score < 0){
+				this.score = 0;
+			}
 			this.mood = thingy.value < 0 ? 'hurt' : 'happy';
 			this.flashMood = TIME_TO_FLASH;
 			if(thingy.role === 'baddie'){
