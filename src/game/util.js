@@ -72,11 +72,20 @@ define([], function(){
  			heart : [144, 240, 20, 18],
  			bigHeart : [76, 240, 68, 66],
  			bigBolt : [203, 245, 38, 55],
- 			bolt : [255, 245, 13, 18]
+ 			bolt : [255, 245, 13, 18],
+ 			lblPress : [5, 370, 91, 20],
+ 			lblToStart : [228, 370, 137, 20],
+ 			lblAnyKey : [102, 370, 120, 20],
+ 			lblEnterKey : [5, 396, 151, 20],
+ 			lblMove : [44, 549, 52, 15],
+ 			lblControls : [182, 467, 115, 18],
+ 			lblFire : [222, 549, 41, 15],
+ 			arrowKeys : [5, 450, 135, 95],
+ 			spacebar : [145, 500, 200, 42]
 		},
 
 		spriteTest : function(ctx, sprite){
-			var sp = this.sprites.bolt;
+			var sp = this.sprites.spacebar;
 			this.drawSprite(ctx, sprite, sp, 100, 100);
 			ctx.strokeStyle = 'white';
 			ctx.strokeRect(100, 100, sp[2], sp[3]);

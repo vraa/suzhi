@@ -142,12 +142,52 @@ define(['util', 'colors', 'suzhi', 'thingy', 'hud'],
 		},
 
 		drawIntro : function(ctx){
-			var title = util.sprites.suzhiTitle,
-				ready = util.sprites.getReady,
-				play = util.sprites.playBtn;
-			util.drawSprite(ctx, sprite, title, (cW/2 - title[2]/2), 50);
-			util.drawSprite(ctx, sprite, play, cW/2 - play[2]/2 , 380);
-			util.drawSprite(ctx, sprite, ready, (cW/2 - ready[2]/2), 430);
+			var sy = 50,
+				sx = 0,
+				pad = 20,
+				title = util.sprites.suzhiTitle;
+
+			util.drawSprite(ctx, sprite, title, (cW/2 - title[2]/2), sy);
+			sy += title[3] + 4 * pad;
+			this.drawHelp(ctx, sy);
+			
+		},
+
+		drawHelp : function(ctx, sy){
+			var sy = sy || 50,
+				sx = 0,
+				pad = 20,
+				cntrl = util.sprites.lblControls,
+				arrow = util.sprites.arrowKeys,
+				space = util.sprites.spacebar,
+				mv = util.sprites.lblMove,
+				fr = util.sprites.lblFire,
+				pr = util.sprites.lblPress,
+				en = util.sprites.lblEnterKey,
+				st = util.sprites.lblToStart;
+
+
+			/*util.drawSprite(ctx, sprite, cntrl, cW/2 - cntrl[2]/2, sy);
+			sy += cntrl[3] + pad;*/
+
+			sx += cW/2 - arrow[2] - 50;
+			util.drawSprite(ctx, sprite, arrow, sx, sy);
+
+			sx += arrow[2] + pad;
+			sy += arrow[3] - space[3];
+			util.drawSprite(ctx, sprite, space, sx, sy);
+
+			sy += space[3] + pad / 2;
+			util.drawSprite(ctx, sprite, mv, 160, sy);
+			util.drawSprite(ctx, sprite, fr, 340, sy);
+
+			sx = cW/2 - pr[2]/2;
+			sy += fr[3] + 3 * pad;
+			util.drawSprite(ctx, sprite, pr, sx, sy);
+
+			sx = cW/2 - en[2]/2;
+			sy += pr[3] + pad;
+			util.drawSprite(ctx, sprite, en, sx, sy);
 		},
 
 		drawGameOver : function(ctx){
@@ -160,7 +200,7 @@ define(['util', 'colors', 'suzhi', 'thingy', 'hud'],
 			ctx.fillStyle = colors.suzhi;
 			ctx.textAlign = 'center';
 			ctx.fillText(suzhi.score, cW/2, 230);
-			util.drawSprite(ctx, sprite, ok, okayBtn.x, okayBtn.y);
+			this.drawHelp(ctx, 280);
 		},
 
 		renderGameWorld : function(ctx){
