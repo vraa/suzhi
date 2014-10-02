@@ -6,7 +6,8 @@ define(['util','colors'], function(util,colors){
 		Y_THRUST = 50,
 		MAX_Y_VELOCITY = 7,
 		TIME_TO_FLASH = 20,
-		KEYS = util.keys;
+		KEYS = util.keys,
+		BOLT_ENERGY = 50;
 
 	function Suzhi(options){
 		this.x = 0;
@@ -22,6 +23,7 @@ define(['util','colors'], function(util,colors){
 			happy : util.sprites.suzhiHappy
 		};
 		this.init(options.canvas);
+		this.bolts = [];
 	}
 
 	Suzhi.prototype = {
@@ -33,7 +35,7 @@ define(['util','colors'], function(util,colors){
 			this.score = 0;
 			this.mood = 'normal';
 			this.health = 100,
-			this.ammo = 0,
+			this.ammo = 5,
 			this.flashMood = 0;
 		},
 		actOn : function(keyCode){
@@ -58,7 +60,45 @@ define(['util','colors'], function(util,colors){
 		},
 
 		fire : function(){
-			console.log('Firing the shit out');
+			if(this.ammo > 0){
+				var mid = this.mid();
+				this.bolts.push({
+					x : mid.x,
+					y : mid.y,
+					fired : true,
+					energy : BOLT_ENERGY,
+					size : this.size - 10
+				});
+				this.ammo -= 1;
+				this.jump();
+			}
+			
+		},
+
+		isBolted : function(baddie){
+			var o1 = {
+				x : baddie.x,
+				y : baddie.y,
+				h : baddie.height,
+				w : baddie.width
+			}, o2,
+				b,
+				bolt, 
+				boltsCount = this.bolts.length;
+			for(b=0; b<boltsCount; b++){
+				bolt = this.bolts[b];
+				o2 = {
+					x : bolt.x - bolt.size,
+					y : bolt.y - bolt.size,
+					h : 2 * bolt.size - 20 ,
+					w : 2 * bolt.size - 20
+				};
+
+				if(util.collided(o2, o1)){
+					this.score += Math.abs(baddie.value);
+					return true;
+				}
+			}
 		},
 
 		fall : function(){
@@ -88,16 +128,20 @@ define(['util','colors'], function(util,colors){
 			this.health = 0;
 		},
 		update : function(){
+			var pos = this.position(), 
+				b,
+				bolt, 
+				boltsCount = this.bolts.length;
+
 			if(this.inMotion){
 				this.yVelocity += GRAVITY;
 				this.y += this.yVelocity;
 				this.x += this.xVelocity;
 			}
-			var pos = this.position();
 			if(this.health <= 0 || pos.bottom >= (this.cH - 17)){
 				this.stop();
 			}
-			if(pos.top <= 0 && this.yVelocity < 0){
+			if(pos.top <= 30 && this.yVelocity < 0){
 				this.yVelocity = Math.abs(this.yVelocity);
 			}
 			if(pos.left <= 0 && this.xVelocity < 0){
@@ -112,6 +156,17 @@ define(['util','colors'], function(util,colors){
 			if(this.flashMood == 0 && !this.isDead){
 				this.mood = 'normal';
 			}
+
+			for(b = 0; b < boltsCount; b++){
+				bolt = this.bolts[b];
+				if(bolt.energy <= 0){
+					this.bolts.splice(b, 1);
+					boltsCount -= 1;
+				}else{
+					bolt.energy -= 1;
+					bolt.size += 2;
+				}
+			}
 		},
 		draw : function(ctx){
 			var mid = this.mid(),
@@ -124,7 +179,22 @@ define(['util','colors'], function(util,colors){
 			ctx.stroke();
 			ctx.closePath();
 			util.drawSprite(ctx, this.sprite, this.moods[this.mood], this.x, this.y);
+			this.drawBolts(ctx);
 			ctx.restore();
+		},
+		drawBolts : function(ctx){
+			var b,
+				bolt, 
+				boltsCount = this.bolts.length;
+			for(b=0; b<boltsCount; b++){
+				bolt = this.bolts[b];
+				ctx.save();
+				ctx.beginPath();
+				ctx.strokeStyle = colors.boltColor;
+				ctx.arc(bolt.x, bolt.y, bolt.size, 0, 2*Math.PI, false);
+				ctx.stroke();
+				ctx.closePath();
+			}
 		},
 		mid : function(){
 			return {

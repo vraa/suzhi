@@ -11,8 +11,8 @@ define([], function(){
 		lifelineGood : 'rgba(1,255,112,.6)',
 		lifelineBad : 'rgba(255,65,54,.6)',
 		hudColor : 'rgba(221,221,221,.1)',
-		hudText : 'rgba(255,255, 255, .8)'
-
+		hudText : 'rgba(255,255, 255, .8)',
+		boltColor : 'rgba(255, 255, 255, .51)'
 	}
 
 });

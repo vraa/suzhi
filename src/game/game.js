@@ -40,7 +40,6 @@ define(['util', 'colors', 'suzhi', 'thingy', 'hud'],
 				h : util.sprites.okayBtn[3]
 			}
 			game = this;
-			currentState = states.game;
 		},
 
 		initObjects : function(){
@@ -97,7 +96,7 @@ define(['util', 'colors', 'suzhi', 'thingy', 'hud'],
 			if(frames % 200 == 0){
 				thingies.push(this.makeThingy(util.randomGoody()));
 			}
-			if(frames % 1000 == 0){
+			if(frames % 750 == 0){
 				thingies.push(this.makeThingy(util.randomAddon()));
 			}
 			suzhi.update();
@@ -113,6 +112,9 @@ define(['util', 'colors', 'suzhi', 'thingy', 'hud'],
 					thingies.splice(i,1);
 					gCount--;
 				}else{
+					if(thingy.role === 'baddie' &&  !thingy.isZombie && suzhi.isBolted(thingy)){
+						thingy.dropDead();
+					}
 					thingies[i].update(frames, suzhi);
 				}
 			}
@@ -208,8 +210,8 @@ define(['util', 'colors', 'suzhi', 'thingy', 'hud'],
 			height = env.viewport.height;
 			
 			if(width >= 500){
-				width = 550;
-				height = 550;
+				width = 600;
+				height = 600;
 			}
 			canvas.width = width;
 			canvas.height = height;

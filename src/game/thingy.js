@@ -123,26 +123,38 @@ define(['util', 'colors'], function(util,colors){
 			}
 		},
 
+		dropDead : function(){
+			this.xVelocity = 0;
+			this.yVelocity = 30;
+			this.isZombie = true;
+		},
+
 		update : function(frames, suzhi){
 			this.x += this.xVelocity;
-			this.y += this.yVelocity;			
-			this._randomMotion(frames);
-			this._hitTheWall();
-			if(!this.isCollided && !this.isDying && !this.isToddler){
+			this.y += this.yVelocity;
+			if(!this.isZombie){
+				this._randomMotion(frames);
+				this._hitTheWall();
+			}else{
+				if(this.y + this.height >= this.cH){
+					this.lifeTime = 0;
+				}
+			}
+			if(!this.isCollided && !this.isDying && !this.isToddler && !this.isZombie){
 				this._isCollided(suzhi);
 			}
 			this.lifeTime -= 1;
-			if(this.lifeTime <= RETIREMENT){
+			if(!this.isDying && this.lifeTime <= RETIREMENT){
 				this.isDying = true;
 			}
-			if(MAX_LIFE - this.lifeTime >= TODDLER){
+			if(this.isToddler && MAX_LIFE - this.lifeTime >= TODDLER){
 				this.isToddler = false;
 			}
 			if(this.lifeTime <=0){
 				this.isDead = true;
 				this.lifeTime = 0;
 			}
-			if(this.role === 'baddie'){
+			if(!this.isZombie && this.role === 'baddie'){
 				if(this.animFrames >= 10){
 					this.animFrames = 0;
 					this.coords =  frames % 2 === 0 ? this.coordsEven : this.coordsOdd;	

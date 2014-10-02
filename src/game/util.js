@@ -1,7 +1,7 @@
 define([], function(){
 
 	var goodies = ['smiley', 'laughy', 'holy', 'geary', 'sunny', 'rady'];
-	var addons = ['hearty', 'bolty'];
+	var addons = ['hearty', 'bolty', 'bolty'];
 
 	return {
 
