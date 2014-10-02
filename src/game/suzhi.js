@@ -12,6 +12,7 @@ define(['util','colors'], function(util,colors){
 		this.x = 0;
 		this.y = 0;
 		this.size = 47;
+		this.lifelineSize = (this.size / 2) + 2;
 		this.yVelocity = 0;
 		this.sprite = options.sprite;
 		this.coords = util.sprites.suzhi;
@@ -84,6 +85,7 @@ define(['util','colors'], function(util,colors){
 			this.inMotion = false;
 			this.isDead = true;
 			this.mood = 'hurt';
+			this.health = 0;
 		},
 		update : function(){
 			if(this.inMotion){
@@ -92,7 +94,7 @@ define(['util','colors'], function(util,colors){
 				this.x += this.xVelocity;
 			}
 			var pos = this.position();
-			if(pos.bottom >= (this.cH - 17)){
+			if(this.health <= 0 || pos.bottom >= (this.cH - 17)){
 				this.stop();
 			}
 			if(pos.top <= 0 && this.yVelocity < 0){
@@ -112,7 +114,19 @@ define(['util','colors'], function(util,colors){
 			}
 		},
 		draw : function(ctx){
+			var mid = this.mid(),
+				llEnd = (this.health * 359 / 100)*(Math.PI/180);
+			ctx.strokeStyle = this.health > 50 ? colors.lifelineGood : colors.lifelineBad;
+			ctx.lineWidth = 2;
+			ctx.arc(mid.x, mid.y, this.lifelineSize, 0, llEnd, false);
+			ctx.stroke();
 			util.drawSprite(ctx, this.sprite, this.moods[this.mood], this.x, this.y);
+		},
+		mid : function(){
+			return {
+				x : this.x + (this.size / 2),
+				y : this.y + (this.size / 2)
+			}
 		},
 		xy : function(){
 			return {
@@ -128,10 +142,20 @@ define(['util','colors'], function(util,colors){
 				right : this.x + this.size
 			}
 		},
-		gotThingy : function(value){
-			this.score += value;
-			this.mood = value < 0 ? 'hurt' : 'happy';
+		gotThingy : function(thingy){
+			this.score += thingy.value;
+			this.mood = thingy.value < 0 ? 'hurt' : 'happy';
 			this.flashMood = TIME_TO_FLASH;
+			if(thingy.role === 'baddie'){
+				this.health -= Math.abs(( (100 * thingy.value) / 750));
+				this.health = this.health < 0 ? 0 : this.health;
+			}
+			if(thingy.category === 'health'){
+				this.health += thingy.value;
+				this.health = this.health > 100 ? 100 : this.health;
+			}else if(thingy.category === 'ammo'){
+				this.ammo += thingy.value;
+			}
 		}
 	}
 

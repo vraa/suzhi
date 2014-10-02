@@ -117,7 +117,7 @@ define(['util', 'colors'], function(util,colors){
 					w : suzhi.size
 				};
 			if(util.collided(o1, o2)){
-				suzhi.gotThingy(this.value);
+				suzhi.gotThingy(this);
 				this.isCollided = true;
 				this.lifeTime = RETIREMENT;
 			}

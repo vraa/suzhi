@@ -7,7 +7,9 @@ define([], function(){
 		suzhi : 'rgb(255,220,0)',
 		goody : 'rgb(1,255,112)',
 		baddie : 'rgb(255,65,54)',
-		title : 'rgb(255,220,0)'
+		title : 'rgb(255,220,0)',
+		lifelineGood : 'rgba(1,255,112,.6)',
+		lifelineBad : 'rgba(255,65,54,.6)'
 
 	}
 

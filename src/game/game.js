@@ -40,6 +40,7 @@ define(['util', 'colors', 'suzhi', 'thingy', 'hud'],
 				h : util.sprites.okayBtn[3]
 			}
 			game = this;
+			currentState = states.game;
 		},
 
 		initObjects : function(){
@@ -82,7 +83,7 @@ define(['util', 'colors', 'suzhi', 'thingy', 'hud'],
 			
 		},
 
-		getThingy : function(type){
+		makeThingy : function(type){
 			return new Thingy({
 							type : type,
 							position :  util.randomPoint(canvas,20),
@@ -94,10 +95,10 @@ define(['util', 'colors', 'suzhi', 'thingy', 'hud'],
 
 		updateGameWorld : function(){
 			if(frames % 200 == 0){
-				thingies.push(this.getThingy(util.randomGoody()));
+				thingies.push(this.makeThingy(util.randomGoody()));
 			}
 			if(frames % 1000 == 0){
-				thingies.push(this.getThingy(util.randomAddon()));
+				thingies.push(this.makeThingy(util.randomAddon()));
 			}
 			suzhi.update();
 			hud.update({
@@ -135,16 +136,14 @@ define(['util', 'colors', 'suzhi', 'thingy', 'hud'],
 				this.drawGameOver(ctx);
 			}
 			
-			//this.drawFireBed(ctx);
+			this.drawFireBed(ctx);
 		},
 
 		drawIntro : function(ctx){
 			var title = util.sprites.suzhiTitle,
 				ready = util.sprites.getReady,
-				play = util.sprites.playBtn,
-				how = util.sprites.howTo;
+				play = util.sprites.playBtn;
 			util.drawSprite(ctx, sprite, title, (cW/2 - title[2]/2), 50);
-			util.drawSprite(ctx, sprite, how, cW/2-how[2]/2, 130);
 			util.drawSprite(ctx, sprite, play, cW/2 - play[2]/2 , 380);
 			util.drawSprite(ctx, sprite, ready, (cW/2 - ready[2]/2), 430);
 		},
@@ -238,7 +237,9 @@ define(['util', 'colors', 'suzhi', 'thingy', 'hud'],
 			}else if(currentState === states.game){
 				suzhi.actOn(keyCode);
 			}else if(currentState === states.over){
-				game.start();
+				if(keyCode === util.keys.ENTER){
+					game.start();	
+				}
 			}
 		},
 
