@@ -29,6 +29,7 @@ define(['util', 'colors', 'suzhi', 'thingy'],
 			env = options.env;
 			sprite = options.sprite;
 			this.setupCanvas();
+			this.setupHandlers();
 			this.initObjects();
 			this.run();
 			okayBtn = {
@@ -43,6 +44,11 @@ define(['util', 'colors', 'suzhi', 'thingy'],
 		initObjects : function(){
 			suzhi = new Suzhi({env:env, canvas: canvas, sprite: sprite});
 			thingies = [];
+		},
+
+		start : function(){
+			this.initObjects();
+			currentState = states.game;
 		},
 
 		run : function(){
@@ -114,7 +120,7 @@ define(['util', 'colors', 'suzhi', 'thingy'],
 				this.drawGameOver(ctx);
 			}
 			
-			this.drawFireBed(ctx);
+			//this.drawFireBed(ctx);
 		},
 
 		drawIntro : function(ctx){
@@ -192,12 +198,32 @@ define(['util', 'colors', 'suzhi', 'thingy'],
 			}
 			canvas.width = width;
 			canvas.height = height;
-			canvas.addEventListener(evt, this.handleClickStart);
+			//canvas.addEventListener(evt, this.handleClickStart);
 
 			
 			document.getElementById('game').appendChild(canvas);
 			cH = canvas.height;
 			cW = canvas.width;
+		},
+
+		setupHandlers : function(){
+			window.addEventListener('keydown', function(evt){
+				if(util.isAGameKey(evt.keyCode)){
+					evt.stopImmediatePropagation();
+					evt.preventDefault();
+					game.handleKey(evt.keyCode);
+				}
+			});
+		},
+
+		handleKey : function(keyCode){
+			if(currentState === states.intro){
+				game.start();
+			}else if(currentState === states.game){
+				suzhi.actOn(keyCode);
+			}else if(currentState === states.over){
+				game.start();
+			}
 		},
 
 		handleClickStart : function(evt){

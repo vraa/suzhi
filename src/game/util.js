@@ -4,6 +4,24 @@ define([], function(){
 
 	return {
 
+		keys : {
+			SPACE : 32,
+			LEFT : 37,
+			UP : 38,
+			RIGHT : 39,
+			DOWN : 40,
+			ENTER : 13,
+		},
+
+		isAGameKey : function(keyCode){
+			for(key in this.keys){
+				if(keyCode === this.keys[key]){
+					return true;
+				}
+			}
+			return false;
+		},
+
 		// x,y,w,h
 		sprites : {
 			suzhiTitle : [0, 60, 100, 30],

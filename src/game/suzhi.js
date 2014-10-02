@@ -2,9 +2,11 @@ define(['util','colors'], function(util,colors){
 
 	var GRAVITY = 0.25,
 		X_THRUST = 10,
+		MINIMAL_THRUST = 8,
 		Y_THRUST = 50,
 		MAX_Y_VELOCITY = 7,
-		TIME_TO_FLASH = 20;
+		TIME_TO_FLASH = 20,
+		KEYS = util.keys;
 
 	function Suzhi(options){
 		this.x = 0;
@@ -31,12 +33,36 @@ define(['util','colors'], function(util,colors){
 			this.mood = 'normal';
 			this.flashMood = 0;
 		},
-		jump : function(forcePoint){
+		actOn : function(keyCode){
+			if(keyCode === KEYS.UP){
+				this.jump();
+			}else if(keyCode === KEYS.LEFT){
+				this.move('left');
+			}else if(keyCode === KEYS.RIGHT){
+				this.move('right');
+			}else if(keyCode === KEYS.SPACE){
+				this.fire();
+			}
+		},
+
+		move : function(direction){
+			var xy = this.xy(),
+				dX = direction === 'left' ? 100 : -100;
+			xy.x += dX;
+			this.jump(xy, MINIMAL_THRUST);
+		},
+
+		fire : function(){
+			console.log('Firing the shit out');
+		},
+
+		jump : function(forcePoint, force){
+			forcePoint = forcePoint || this.xy();
 			var xForce, yForce, xVel, yVel;
 			yForce = forcePoint.y - this.y;
 			xForce = forcePoint.x - this.x;
 
-			yVel = Y_THRUST;
+			yVel = force || Y_THRUST;
 			xVel = ( (X_THRUST * xForce) / this.cW );
 			this.xVelocity = -xVel;
 			this.yVelocity = -Math.min(yVel, MAX_Y_VELOCITY);
@@ -63,7 +89,7 @@ define(['util','colors'], function(util,colors){
 			if(pos.left <= 0 && this.xVelocity < 0){
 				this.xVelocity = Math.abs(this.xVelocity);
 			}
-			if(pos.right >= cW && this.xVelocity > 0){
+			if(pos.right >= this.cW && this.xVelocity > 0){
 				this.xVelocity = this.xVelocity * -1;
 			}
 			if(this.flashMood > 0){
@@ -87,6 +113,12 @@ define(['util','colors'], function(util,colors){
 			ctx.fillStyle = colors.suzhi;
 			ctx.fillText(this.score, 20, 20);
 			ctx.restore();
+		},
+		xy : function(){
+			return {
+				x : this.x,
+				y : this.y
+			}
 		},
 		position : function(){
 			return {
