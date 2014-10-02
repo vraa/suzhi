@@ -116,11 +116,15 @@ define(['util','colors'], function(util,colors){
 		draw : function(ctx){
 			var mid = this.mid(),
 				llEnd = (this.health * 359 / 100)*(Math.PI/180);
+				ctx.save();
 			ctx.strokeStyle = this.health > 50 ? colors.lifelineGood : colors.lifelineBad;
 			ctx.lineWidth = 2;
+			ctx.beginPath();
 			ctx.arc(mid.x, mid.y, this.lifelineSize, 0, llEnd, false);
 			ctx.stroke();
+			ctx.closePath();
 			util.drawSprite(ctx, this.sprite, this.moods[this.mood], this.x, this.y);
+			ctx.restore();
 		},
 		mid : function(){
 			return {

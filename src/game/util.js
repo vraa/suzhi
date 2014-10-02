@@ -69,10 +69,10 @@ define([], function(){
  			okayBtn : [0, 270, 62, 20],
  			playBtn : [0, 292, 62, 20],
  			score : [111, 65, 83, 20],
- 			heart : [144, 240, 36, 33],
+ 			heart : [144, 240, 20, 18],
  			bigHeart : [76, 240, 68, 66],
  			bigBolt : [203, 245, 38, 55],
- 			bolt : [255, 245, 25, 33]
+ 			bolt : [255, 245, 13, 18]
 		},
 
 		spriteTest : function(ctx, sprite){

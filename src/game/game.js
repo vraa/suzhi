@@ -45,7 +45,7 @@ define(['util', 'colors', 'suzhi', 'thingy', 'hud'],
 
 		initObjects : function(){
 			suzhi = new Suzhi({env:env, canvas: canvas, sprite: sprite});
-			hud = new Hud({canvas: canvas});
+			hud = new Hud({canvas: canvas, sprite: sprite});
 			thingies = [];
 		},
 
