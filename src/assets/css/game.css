@@ -49,6 +49,7 @@ table {
 
 body{
 	background-color: #eee;
+	padding: 10px;
 }
 .noselect {
     -webkit-touch-callout: none;
@@ -57,76 +58,4 @@ body{
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-}
-
-.suzhi{
-	font:1rem Audiowide;
-}
-.info{
-	display: none;
-}
-
-@media(min-width: 900px){
-	.suzhi{
-		overflow: hidden;
-		display: block;
-		width: 900px;
-		margin:100px auto;
-	}
-	.game{
-		float: left;
-		width: 550px;
-		height: 550px;
-	}
-	.info{
-		display: block;
-		float: left;
-		width: 350px;
-		height: 550px;
-		background-color: #DDDDDD;
-		color: #666;
-		font-size: .7rem;
-		line-height: 1.45rem;
-		text-align: center;
-		position: relative;
-	}
-	.info h1{
-		font-size: 1.4rem;
-		margin:10px 0;
-		text-transform: uppercase;
-		color: #001F3F;
-		text-align: left;
-		padding: 20px;
-	}
-	.info h2{
-		font-size: 1.2rem;
-		margin-bottom: 10px;
-	}
-	.info ul{
-		list-style: square;
-		letter-spacing: 1pt;
-		margin-left: 20px;
-		text-align: left;
-		padding: 0 20px 20px 20px;
-		font-size: 1rem;
-	}
-	.info .author{
-		margin: 100px 0;
-		font-size: .9rem;
-		border-top: 1px dashed #ccc;
-		padding: 10px 0;
-	}
-	.author a{
-		color: #111111;
-		text-decoration: none;
-	}
-	footer{
-		clear: both;
-		padding-top: 20px;
-	}
-	.ad{
-		position: absolute;
-		bottom: 0;
-		left: 5px;
-	}
 }
