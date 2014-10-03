@@ -70,7 +70,6 @@ define(['util','colors'], function(util,colors){
 					size : this.size - 10
 				});
 				this.ammo -= 1;
-				this.jump();
 			}
 			
 		},
