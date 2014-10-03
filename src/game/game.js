@@ -93,10 +93,11 @@ define(['util', 'colors', 'suzhi', 'thingy', 'hud'],
 		},
 
 		updateGameWorld : function(){
-			if(frames % 200 == 0){
+			if(frames % 300 == 0){
 				thingies.push(this.makeThingy(util.randomGoody()));
+				thingies.push(this.makeThingy(util.randomBaddie()));
 			}
-			if(frames % 750 == 0){
+			if(frames % 500 == 0){
 				thingies.push(this.makeThingy(util.randomAddon()));
 			}
 			suzhi.update();
@@ -112,7 +113,7 @@ define(['util', 'colors', 'suzhi', 'thingy', 'hud'],
 					thingies.splice(i,1);
 					gCount--;
 				}else{
-					if(thingy.role === 'baddie' &&  !thingy.isZombie && suzhi.isBolted(thingy)){
+					if(!thingy.isZombie && suzhi.isBolted(thingy)){
 						thingy.dropDead();
 					}
 					thingies[i].update(frames, suzhi);

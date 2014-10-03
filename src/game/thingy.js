@@ -43,7 +43,7 @@ define(['util', 'colors'], function(util,colors){
 			role : 'addon',
 			category : 'health',
 			coords : coords.bigHeart,
-			value : 10,
+			value : 20,
 			color: colors.goody
 		}, bolty : {
 			role : 'addon',

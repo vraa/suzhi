@@ -1,7 +1,8 @@
 define([], function(){
 
 	var goodies = ['smiley', 'laughy', 'holy', 'geary', 'sunny', 'rady'];
-	var addons = ['hearty', 'bolty', 'bolty'];
+	var baddies = ['geary', 'sunny', 'rady'];
+	var addons = ['hearty', 'bolty'];
 
 	return {
 
@@ -162,6 +163,10 @@ define([], function(){
 
 		randomGoody : function(){
 			return goodies[Math.floor(Math.random() * goodies.length)];
+		},
+
+		randomBaddie : function(){
+			return baddies[Math.floor(Math.random() * baddies.length)];
 		},
 
 		randomAddon : function(){
