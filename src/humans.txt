@@ -1,0 +1,30 @@
+/* TEAM */
+
+	Developer : Veera
+	Contact: veera.k.sundar [at] gmail.com
+	Twitter: @vraa
+	From: Chennai, India
+
+/* THANKS */
+
+	Icons by:
+	http://thenounproject.com
+	http://thenounproject.com/spencerloveless
+	http://thenounproject.com/joaquin.saenzrojo
+	http://thenounproject.com/mollybramlet
+	http://thenounproject.com/rachel.brent
+	http://thenounproject.com/Yaosamo
+	http://thenounproject.com/misirlou
+	http://thenounproject.com/mosaic7
+	http://thenounproject.com/imicons
+	http://thenounproject.com/Hrag
+	http://thenounproject.com/tobiasfabian
+	http://thenounproject.com/Kortschot
+	http://thenounproject.com/Castor
+	http://thenounproject.com/liamgrieves
+
+/* SITE */
+	Last Update: 2014/10/02
+	Language: English
+	Doctype: HTML5
+	IDE: Sublime Text, GIMP, FileZilla, Ubuntu, Chrome, Firefox
