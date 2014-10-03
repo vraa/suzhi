@@ -223,7 +223,7 @@ define(['util','colors'], function(util,colors){
 			this.mood = thingy.value < 0 ? 'hurt' : 'happy';
 			this.flashMood = TIME_TO_FLASH;
 			if(thingy.role === 'baddie'){
-				this.health -= Math.abs(( (100 * thingy.value) / 300));
+				this.health -= Math.abs(( (100 * thingy.value) / 400));
 				this.health = this.health < 0 ? 0 : this.health;
 			}
 			if(thingy.category === 'health'){
